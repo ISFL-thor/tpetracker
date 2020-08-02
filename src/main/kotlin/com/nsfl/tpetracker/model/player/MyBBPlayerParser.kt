@@ -170,15 +170,17 @@ class MyBBPlayerParser {
 
     fun parseUserName(playerID: String): String{
       try {
-        val con_user = connect("http://nsfl.jcink.net/index.php?showtopic=$playerID") ?: throw Exception()
+        val con_user = connect("https://forums.sim-football.com/showthread.php?tid=$playerID") ?: throw Exception()
         val user = con_user
                 .body()
-                .getElementsByClass("post-normal")[0]
-              .getElementsByClass("normalname")
-              .text()
+                .getElementsByClass("post")[0]
+                .getElementsByClass("post_author")[0]
+                .getElementsByClass("largetext")
+                .text()
+
         return user.replace("'", "’")
       } catch (exception: Exception) {
-        return "-"
+        return playerID
       }
     }
 
