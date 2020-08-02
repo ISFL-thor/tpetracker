@@ -32,7 +32,6 @@ class MyBBPlayerParser {
         val pageCount = parsePageCount(firstDocument.body().getElementsByClass("pages"))
         if(pageCount>1){
             for (i in 2..pageCount) {
-                println("Adding page $i")
                 documentList.add(connect("https://forums.sim-football.com/forumdisplay.php?fid=${team.id}&page=${i}") ?: throw Exception())
             }
         }
