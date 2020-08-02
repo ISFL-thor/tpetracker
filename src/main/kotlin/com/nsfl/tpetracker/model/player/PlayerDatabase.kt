@@ -123,7 +123,7 @@ class PlayerDatabase {
                     "SELECT * FROM players WHERE player_id='$playerId' ORDER BY id ASC"
             )
 
-            var user = PlayerParser().parseUserName(playerId)
+            var user = MyBBPlayerParser().parseUserName(playerId)
 
             while (playerResultSet.next()) {
 
