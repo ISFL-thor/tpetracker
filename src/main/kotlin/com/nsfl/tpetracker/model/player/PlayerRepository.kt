@@ -5,7 +5,7 @@ import com.nsfl.tpetracker.model.team.Team
 
 class PlayerRepository {
 
-    private val playerParser = PlayerParser()
+    private val playerParser = MyBBPlayerParser()
     private val playerDatabase = PlayerDatabase()
     private val activePlayerList = ArrayList<ActivePlayer>()
     private val retiredPlayerList = ArrayList<RetiredPlayer>()
