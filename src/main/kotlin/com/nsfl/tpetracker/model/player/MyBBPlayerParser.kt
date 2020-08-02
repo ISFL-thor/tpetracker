@@ -6,6 +6,9 @@ import com.nsfl.tpetracker.model.team.Team
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
+import sun.rmi.runtime.Log
+import java.io.PrintWriter
+import java.io.StringWriter
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
@@ -60,8 +63,9 @@ class MyBBPlayerParser {
                                         val playerPost = playerPostDoc.body()
                                                             .getElementsByClass("post")[0]
 
-                                        val author = playerPost.getElementsByClass("author_information")[0]
+                                        val author = playerPost.getElementsByClass("post_author")[0]
                                         val user = author.getElementsByClass("largetext").text()
+
                                         val playerLink = author.getElementsByAttribute("href")[0].attr("href")
                                         val playerProfileDoc = connect(playerLink)
                                         val playerProfile = playerProfileDoc.body().getElementsByClass("trow2")
@@ -100,7 +104,11 @@ class MyBBPlayerParser {
                                                 )
                                         )
                                 } catch (exception: Exception) {
-                                    Logger.error("Issue parsing player with Player ID: $playerId ! $exception")
+                                    val sw = StringWriter()
+                                    exception.printStackTrace(PrintWriter(sw))
+                                    val exceptionAsString = sw.toString()
+
+                                    Logger.error("Issue parsing player with Player ID: $playerId ! $exceptionAsString")
                                 }
 
                         } catch (exception: Exception){
@@ -215,9 +223,11 @@ class MyBBPlayerParser {
         }
 
         val lastSeenString = visit_elements[0].nextElementSibling().toString()
-        val regex = """([0-9]{2}-[0-9]{2}-[0-9]{4}, [0-9]{2}:[0-9]{2} [PA]M)""".toRegex()
+        //System.out.println(lastSeenString)
+        //val regex = """([0-9]{2}-[0-9]{2}-[0-9]{4}, [0-9]{2}:[0-9]{2} [PA]M)""".toRegex()
+        val regex = """([0-9]{2}-[0-9]{2}-[0-9]{4}).*?([0-9]{2}:[0-9]{2} [PA]M)""".toRegex()
         val matchResult = regex.find(lastSeenString) ?: throw Exception()
-        return lastSeenDateFormat.format(inputDateFormat.parse(matchResult.groupValues[1]))
+        return lastSeenDateFormat.format(inputDateFormat.parse(matchResult.groupValues[1]+", "+matchResult.groupValues[2]))
 
     }
 
