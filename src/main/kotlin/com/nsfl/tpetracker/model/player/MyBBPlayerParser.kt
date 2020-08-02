@@ -6,7 +6,6 @@ import com.nsfl.tpetracker.model.team.Team
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
-import sun.rmi.runtime.Log
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.text.SimpleDateFormat
@@ -27,14 +26,14 @@ class MyBBPlayerParser {
         val playerList = ArrayList<PlayerParser.ParsedPlayer>()
         val documentList = ArrayList<Document>()
 
-        val firstDocument = connect("https://forums.sim-football.com/forumdisplay.php?fid=${team.id}")
+        val firstDocument = connect("https://forums.sim-football.com/forumdisplay.php?fid=${team.id}") ?: throw Exception()
         documentList.add(firstDocument)
 
         val pageCount = parsePageCount(firstDocument.body().getElementsByClass("pages"))
         if(pageCount>1){
             for (i in 2..pageCount) {
                 println("Adding page $i")
-                documentList.add(connect("https://forums.sim-football.com/forumdisplay.php?fid=${team.id}&page=${i}"))
+                documentList.add(connect("https://forums.sim-football.com/forumdisplay.php?fid=${team.id}&page=${i}") ?: throw Exception())
             }
         }
 
@@ -57,7 +56,7 @@ class MyBBPlayerParser {
                                 try{
                                     val playerId = parsePlayerID(it)
                                     //println(playerId)
-                                    val playerPostDoc = connect("https://forums.sim-football.com/showthread.php?tid=${playerId}")
+                                    val playerPostDoc = connect("https://forums.sim-football.com/showthread.php?tid=${playerId}") ?: throw Exception()
 
                                     try {
                                         val playerPost = playerPostDoc.body()
@@ -67,7 +66,7 @@ class MyBBPlayerParser {
                                         val user = author.getElementsByClass("largetext").text()
 
                                         val playerLink = author.getElementsByAttribute("href")[0].attr("href")
-                                        val playerProfileDoc = connect(playerLink)
+                                        val playerProfileDoc = connect(playerLink) ?: throw Exception()
                                         val playerProfile = playerProfileDoc.body().getElementsByClass("trow2")
 
                                         val attributes = playerPost.getElementsByClass("post_body").toString()
@@ -100,7 +99,7 @@ class MyBBPlayerParser {
                                                         parsePlayerAttribute(attributes, "endurance:"),
                                                         parsePlayerAttribute(attributes, "kick power:"),
                                                         parsePlayerAttribute(attributes, "kick accuracy:"),
-                                                        parseLastSeen(playerProfile)
+                                                        parseLastSeen(playerProfile, playerId)
                                                 )
                                         )
                                 } catch (exception: Exception) {
@@ -171,9 +170,10 @@ class MyBBPlayerParser {
 
     fun parseUserName(playerID: String): String{
       try {
-        val user = connect("http://nsfl.jcink.net/index.php?showtopic=$playerID")
-              .body()
-              .getElementsByClass("post-normal")[0]
+        val con_user = connect("http://nsfl.jcink.net/index.php?showtopic=$playerID") ?: throw Exception()
+        val user = con_user
+                .body()
+                .getElementsByClass("post-normal")[0]
               .getElementsByClass("normalname")
               .text()
         return user.replace("'", "’")
@@ -216,33 +216,42 @@ class MyBBPlayerParser {
         }
     }
 
-    private fun parseLastSeen(profile_elements: Elements): String {
+    private fun parseLastSeen(profile_elements: Elements, playerId: String): String {
 
         val visit_elements = profile_elements.filter { element ->
             element.toString().contains("Last Visit:")
         }
 
         val lastSeenString = visit_elements[0].nextElementSibling().toString()
-        //System.out.println(lastSeenString)
+
         //val regex = """([0-9]{2}-[0-9]{2}-[0-9]{4}, [0-9]{2}:[0-9]{2} [PA]M)""".toRegex()
         val regex = """([0-9]{2}-[0-9]{2}-[0-9]{4}).*?([0-9]{2}:[0-9]{2} [PA]M)""".toRegex()
-        val matchResult = regex.find(lastSeenString) ?: throw Exception()
-        return lastSeenDateFormat.format(inputDateFormat.parse(matchResult.groupValues[1]+", "+matchResult.groupValues[2]))
+        return try {
+            val matchResult = regex.find(lastSeenString) ?: throw Exception()
+            lastSeenDateFormat.format(inputDateFormat.parse(matchResult.groupValues[1] + ", " + matchResult.groupValues[2]))
+        } catch (e: Exception) {
+            Logger.info("Unable to parse last seen string: $lastSeenString for player ID: $playerId")
+            //Set a default date for those we cant parse due to privacy settings or other issues.
+            lastSeenDateFormat.format(inputDateFormat.parse("01-01-2000, 00:01 AM"))
+        }
 
     }
 
-    private fun connect(url: String): Document {
-        while (true) {
+    private fun connect(url: String): Document? {
+        var i = 0
+        while (i<3) {
             try {
                 return Jsoup
                         .connect(url)
                         .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101 Firefox/78.0")
                         .get()
             } catch (exception: Exception) {
-                Logger.error("Jsoup.connect failed. $exception")
-                Thread.sleep(10000)
+                Logger.error("Jsoup.connect failed. for URL: $url \n $exception")
+                Thread.sleep(5000)
+                i++
             }
         }
+        return null
     }
 
     data class ParsedPlayer(
