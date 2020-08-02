@@ -170,7 +170,7 @@ class HTMLGenerator {
                 }
 
                 if (tpeGained != 0 || tpeLost != 0) {
-                    activityList.add("['<a href=\"http://nsfl.jcink.net/index.php?showtopic=${player.id}\">${player.user}</a>','${player.draftYear}','<a href=\"${player.team.url}\">${player.team.full}</a>','<a href=\"/player?playerId=${player.id}\">${player.name}</a>','${player.position.full}','$tpeGained','$tpeLost','${tpeGained + tpeLost}','${player.currentTPE}','${player.highestTPE}','${player.lastUpdated}','${player.lastSeen}']")
+                    activityList.add("['<a href=\"https://forums.sim-football.com/showthread.php?tid=${player.id}\">${player.user}</a>','${player.draftYear}','<a href=\"${player.team.url}\">${player.team.full}</a>','<a href=\"/player?playerId=${player.id}\">${player.name}</a>','${player.position.full}','$tpeGained','$tpeLost','${tpeGained + tpeLost}','${player.currentTPE}','${player.highestTPE}','${player.lastUpdated}','${player.lastSeen}']")
                 }
             }
         }
@@ -187,16 +187,16 @@ class HTMLGenerator {
     ) = INDIVIDUAL_TEAM_HTML.format(
             team.full,
             playerList.joinToString(",") {
-                "['<a href=\"http://nsfl.jcink.net/index.php?showtopic=${it.id}\">${it.user}</a>','${it.draftYear}','<a href=\"/player?playerId=${it.id}\">${it.name}</a>','${it.position.full}','${it.currentTPE}','${it.highestTPE}','${it.lastUpdated}','${it.lastSeen}','${it.strength}','${it.agility}','${it.arm}','${it.intelligence}','${it.throwingAccuracy}','${it.tackling}','${it.speed}','${it.hands}','${it.passBlocking}','${it.runBlocking}','${it.endurance}','${it.kickPower}','${it.kickAccuracy}']"
+                "['<a href=\"https://forums.sim-football.com/showthread.php?tid=${it.id}\">${it.user}</a>','${it.draftYear}','<a href=\"/player?playerId=${it.id}\">${it.name}</a>','${it.position.full}','${it.currentTPE}','${it.highestTPE}','${it.lastUpdated}','${it.lastSeen}','${it.strength}','${it.agility}','${it.arm}','${it.intelligence}','${it.throwingAccuracy}','${it.tackling}','${it.speed}','${it.hands}','${it.passBlocking}','${it.runBlocking}','${it.endurance}','${it.kickPower}','${it.kickAccuracy}']"
             },
-            "<a href=\"http://nsfl.jcink.net/index.php?showforum=${team.id}\">${team.full}</a>"
+            "<a href=\"https://forums.sim-football.com/forumdisplay.php?fid=${team.id}\">${team.full}</a>"
     )
 
     fun createRetiredPlayersPage(
             playerList: List<RetiredPlayer>
     ) = RETIRED_PLAYERS_HTML.format(
             playerList.joinToString(",") {
-                "['<a href=\"http://nsfl.jcink.net/index.php?showtopic=${it.id}\">${it.user}</a>','${it.draftYear}','<a href=\"${it.team.url}\">${it.team.full}</a>','<a href=\"/player?playerId=${it.id}\">${it.name}</a>','${it.position.full}','${it.currentTPE}','${it.highestTPE}','${it.lastUpdated}']"
+                "['<a href=\"https://forums.sim-football.com/showthread.php?tid=${it.id}\">${it.user}</a>','${it.draftYear}','<a href=\"${it.team.url}\">${it.team.full}</a>','<a href=\"/player?playerId=${it.id}\">${it.name}</a>','${it.position.full}','${it.currentTPE}','${it.highestTPE}','${it.lastUpdated}']"
             }
     )
 
