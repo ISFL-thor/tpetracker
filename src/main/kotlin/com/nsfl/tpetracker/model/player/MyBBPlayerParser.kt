@@ -224,9 +224,13 @@ class MyBBPlayerParser {
     private fun connect(url: String): Document {
         while (true) {
             try {
-                return Jsoup.connect(url).get()
+                return Jsoup
+                        .connect(url)
+                        .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101 Firefox/78.0")
+                        .get()
             } catch (exception: Exception) {
                 Logger.error("Jsoup.connect failed. $exception")
+                Thread.sleep(10000)
             }
         }
     }
