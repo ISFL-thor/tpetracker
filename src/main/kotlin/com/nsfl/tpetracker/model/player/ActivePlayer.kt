@@ -29,5 +29,6 @@ class ActivePlayer(
         val kickAccuracy: Int,
         val lastSeen: String,
         val height: Int,
-        val weight: Int
+        val weight: Int,
+        val archetype: String
 ) : Player(id, user, name, team, position, draftYear, currentTPE, highestTPE, lastUpdated, tpeHistoryList)

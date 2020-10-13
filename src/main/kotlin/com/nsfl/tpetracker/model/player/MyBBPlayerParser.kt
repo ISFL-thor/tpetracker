@@ -5,6 +5,7 @@ import com.nsfl.tpetracker.model.position.Position
 import com.nsfl.tpetracker.model.team.Team
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import org.jsoup.safety.Whitelist
 import org.jsoup.select.Elements
 import java.text.SimpleDateFormat
 import java.util.*
@@ -96,7 +97,8 @@ class MyBBPlayerParser {
                                                         parsePlayerAttribute(attributes, "kick accuracy:"),
                                                         parseLastSeen(playerProfile),
                                                         parsePlayerAttribute(attributes, "Height (ft.):"),
-                                                        parsePlayerAttribute(attributes, "Weight (lbs.):")
+                                                        parsePlayerAttribute(attributes, "Weight (lbs.):"),
+                                                        parseArchetype(attributes)
                                                 )
                                         )
                                 } catch (exception: Exception) {
@@ -182,6 +184,53 @@ class MyBBPlayerParser {
         val startIndex = elementString.indexOf("showuser=") + 9
         val endIndex = elementString.indexOf("\"", startIndex)
         return elementString.substring(startIndex, endIndex)
+    }
+
+    private fun parseArchetype(post: String): String {
+        return try {
+            var archetype = ""
+            var started = false
+            var finished = false
+            var searchString = "Archetype:"
+
+            val cleanedPost = Jsoup.parse(post).wholeText()
+                    .replace("*","")
+                    .replace("nbsp","")
+
+            var index = cleanedPost.indexOf(searchString, ignoreCase = true)
+
+            if (index == -1)
+                return "Unknown"
+
+            while (!finished) {
+
+                val char = cleanedPost[index+searchString.length]
+
+                if (!started && !char.isLetter()) {
+
+                } else if (char.isLetter() || char.compareTo(45.toChar()) == 0 ||
+                        char.isWhitespace() && char.compareTo(10.toChar()) != 0) {
+                    archetype+=char
+                    started = true
+                } else if (started) {
+                    finished = true
+                }
+
+                index++
+
+            }
+            archetype = archetype.trim()
+
+            if (archetype.isEmpty()) {
+                println(cleanedPost)
+                return "Unknown"
+            }
+
+            archetype
+
+        } catch (exception: Exception) {
+            "Unknown"
+        }
     }
 
     private fun parsePlayerAttribute(post: String, attributeName: String): Int {
@@ -298,6 +347,7 @@ class MyBBPlayerParser {
             val kickAccuracy: Int,
             val lastSeen: String,
             val height: Int,
-            val weight: Int
+            val weight: Int,
+            val archetype: String
     )
 }

@@ -83,7 +83,8 @@ class PlayerDatabase {
                             player.kickAccuracy,
                             player.lastSeen,
                             player.height,
-                            player.weight
+                            player.weight,
+                            player.archetype
                     )
             )
         }
@@ -278,7 +279,8 @@ class PlayerDatabase {
                             0,
                             "0",
                             0,
-                            0
+                            0,
+                            "Unknown"
                     )
             )
         }

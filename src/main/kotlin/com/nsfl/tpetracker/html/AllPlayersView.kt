@@ -14,6 +14,7 @@ fun DIV.allPlayersView(allPlayers: List<ActivePlayer>) = tablePage("All Players"
                         "<a href=\"${it.team.url}\">${it.team.full}</a>",
                         "<a href=\"/player?playerId=${it.id}\">${it.name}</a>",
                         it.position.full,
+                        it.archetype,
                         it.currentTPE,
                         it.highestTPE,
                         it.lastUpdated,
