@@ -81,7 +81,10 @@ class PlayerDatabase {
                             player.endurance,
                             player.kickPower,
                             player.kickAccuracy,
-                            player.lastSeen
+                            player.lastSeen,
+                            player.height,
+                            player.weight,
+                            player.archetype
                     )
             )
         }
@@ -274,7 +277,10 @@ class PlayerDatabase {
                             0,
                             0,
                             0,
-                            "0"
+                            "0",
+                            0,
+                            0,
+                            "Unknown"
                     )
             )
         }
@@ -283,6 +289,5 @@ class PlayerDatabase {
 
         return playerList
     }
-
     private fun getConnection() = DriverManager.getConnection(System.getenv("JDBC_DATABASE_URL"))
 }

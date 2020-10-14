@@ -5,6 +5,7 @@ import com.nsfl.tpetracker.model.position.Position
 import com.nsfl.tpetracker.model.team.Team
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import org.jsoup.safety.Whitelist
 import org.jsoup.select.Elements
 import java.text.SimpleDateFormat
 import java.util.*
@@ -94,7 +95,10 @@ class MyBBPlayerParser {
                                                         parsePlayerAttribute(attributes, "endurance:"),
                                                         parsePlayerAttribute(attributes, "kick power:"),
                                                         parsePlayerAttribute(attributes, "kick accuracy:"),
-                                                        parseLastSeen(playerProfile)
+                                                        parseLastSeen(playerProfile),
+                                                        parsePlayerAttribute(attributes, "Height (ft.):"),
+                                                        parsePlayerAttribute(attributes, "Weight (lbs.):"),
+                                                        parseArchetype(attributes)
                                                 )
                                         )
                                 } catch (exception: Exception) {
@@ -182,6 +186,53 @@ class MyBBPlayerParser {
         return elementString.substring(startIndex, endIndex)
     }
 
+    private fun parseArchetype(post: String): String {
+        return try {
+            var archetype = ""
+            var started = false
+            var finished = false
+            var searchString = "Archetype:"
+
+            val cleanedPost = Jsoup.parse(post).wholeText()
+                    .replace("*","")
+                    .replace("nbsp","")
+
+            var index = cleanedPost.indexOf(searchString, ignoreCase = true)
+
+            if (index == -1)
+                return "Unknown"
+
+            while (!finished) {
+
+                val char = cleanedPost[index+searchString.length]
+
+                if (!started && !char.isLetter()) {
+
+                } else if (char.isLetter() || char.compareTo(45.toChar()) == 0 ||
+                        char.isWhitespace() && char.compareTo(10.toChar()) != 0) {
+                    archetype+=char
+                    started = true
+                } else if (started) {
+                    finished = true
+                }
+
+                index++
+
+            }
+            archetype = archetype.trim()
+
+            if (archetype.isEmpty()) {
+                println(cleanedPost)
+                return "Unknown"
+            }
+
+            archetype
+
+        } catch (exception: Exception) {
+            "Unknown"
+        }
+    }
+
     private fun parsePlayerAttribute(post: String, attributeName: String): Int {
         return try {
 
@@ -189,6 +240,40 @@ class MyBBPlayerParser {
             var started = false
             var finished = false
             var index = post.indexOf(attributeName, ignoreCase = true)
+
+            if (attributeName == "Height (ft.):") {
+
+                while (!finished) {
+
+                    val char = post[index]
+
+                    if (started && char.compareTo(10.toChar()) != 0) {
+                        attribute += char
+                    }else if (char.isDigit()) {
+                        started = true
+                        attribute += char
+                    } else if (char.compareTo(10.toChar()) == 0) {
+                        finished = true
+                    }
+
+                    index++
+                }
+
+                val regex = Regex("(\\d)\\D{0,5}(\\d{0,2})")
+                var match = regex.find(attribute)
+
+                if (match == null) {
+                    attribute = "-999"
+                } else {
+                    var heightInInches = Integer.valueOf(match.groupValues[1]) * 12
+
+                    if (match.groupValues[2].isNotEmpty()) {
+                        heightInInches += Integer.valueOf(match.groupValues[2])
+                    }
+
+                    attribute = heightInInches.toString()
+                }
+            }
 
             while (!finished) {
 
@@ -260,6 +345,9 @@ class MyBBPlayerParser {
             val endurance: Int,
             val kickPower: Int,
             val kickAccuracy: Int,
-            val lastSeen: String
+            val lastSeen: String,
+            val height: Int,
+            val weight: Int,
+            val archetype: String
     )
 }
