@@ -4,7 +4,7 @@ $(document).ready(function () {
         dom: "<'row'<'col-sm-6'B><'col-sm-6'f>><'row'<'col-sm-12'tr>><'row'<'col-sm-5'i><'col-sm-7'p>>",
         scrollX: !0,
         paging: !1,
-        order: [[5, "desc"]],
+        order: [[6, "desc"]],
         buttons: ["csv", {
             text: "Toggle All", action: function () {
                 t.columns().visible(!t.column(0).visible())
