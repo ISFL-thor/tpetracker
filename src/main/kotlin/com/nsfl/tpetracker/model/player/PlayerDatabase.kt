@@ -289,5 +289,6 @@ class PlayerDatabase {
 
         return playerList
     }
-    private fun getConnection() = DriverManager.getConnection(System.getenv("JDBC_DATABASE_URL"))
+    private fun getConnection() = DriverManager.getConnection("jdbc:postgresql://localhost:5432/tpetracker_local?user=tpetracker_local&password=tpetracker_local")
+   // private fun getConnection() = DriverManager.getConnection(System.getenv("JDBC_DATABASE_URL"))
 }
