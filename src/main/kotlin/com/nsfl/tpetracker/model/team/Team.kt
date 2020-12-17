@@ -20,7 +20,7 @@ enum class Team(
     NEW_YORK_SILVERBACKS("371","/new_york_silverbacks","New York Silverbacks", Type.NSFL),
     ORANGE_COUNTY_OTTERS("64", "/orange_county_otters", "Orange County Otters", Type.NSFL),
     SAN_JOSE_SABERCATS("62", "/san_jose_sabercats", "San Jose SaberCats", Type.NSFL),
-    MYRTLE_BEACH_BUCCANEERS("195", "/myrtle_beach_buccaneers", "Myrtle Beach Buccaneers", Type.DSFL),
+    BONDI_BEACH_BUCCANEERS("195", "/bondi_beach_buccaneers", "Bondi Beach Buccaneers", Type.DSFL),
     KANSAS_CITY_COYOTES("193", "/kansas_city_coyotes", "Kansas City Coyotes", Type.DSFL),
     PORTLAND_PYTHONS("199", "/portland_pythons", "Portland Pythons", Type.DSFL),
     NORFOLK_SEAWOLVES("197", "/norfolk_seawolves", "Norfolk SeaWolves", Type.DSFL),
@@ -48,7 +48,8 @@ enum class Team(
     companion object {
         fun fromName(name: String): Team {
             return when (name) {
-                "PALM_BEACH_SOLAR_BEARS" -> MYRTLE_BEACH_BUCCANEERS
+                "PALM_BEACH_SOLAR_BEARS" -> BONDI_BEACH_BUCCANEERS
+                "MYRTLE_BEACH_BUCCANEERS" -> BONDI_BEACH_BUCCANEERS
                 "SAN_ANTONIO_MARSHALS" -> MINNESOTA_GREY_DUCKS
                 else -> Team.valueOf(name)
             }
