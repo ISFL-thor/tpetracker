@@ -7,11 +7,9 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v1
-    - uses: pixta-dev/repository-mirroring-action@v1
+    - uses: net-engine/github-repository-sync-action@v1
       with:
         target_repo_url:
           ssh://dokku@165.227.217.132:tracker
         ssh_private_key:
           ${{ secrets.CODECOMMIT_SSH_PRIVATE_KEY }}
-        ssh_username:                                   # <-- (for codecommit) you need to specify ssh-key-id as ssh username.
-          ${{ secrets.CODECOMMIT_SSH_PRIVATE_KEY_ID }}
