@@ -1,0 +1,2376 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ISFL Player Builder</title>
+    <link rel="icon" href="https://i.imgur.com/k1cP48w.png" />
+    <style>
+      * {
+        padding: 0px;
+        margin: 0px;
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+        color: #222;
+        font-size: 14px;
+      }
+      table {
+        margin: 0 auto;
+      }
+      td,
+      th {
+        border: 0px solid #999;
+        padding: 3px;
+      }
+      td {
+        min-width: 40px;
+        text-align: center;
+      }
+      h1 {
+        font-size: 2em;
+        margin-top: 20px;
+      }
+      input {
+        text-align: center;
+      }
+      input[type="number"] {
+        width: 50px;
+      }
+      p {
+        font-size: 12px;
+      }
+
+      .tableContainer {
+        width: 300px;
+        background: #e9f6ff;
+        margin: 20px auto;
+        padding: 0px;
+        padding: 10px;
+      }
+
+      .tableContainer th:nth-child(1),
+      .tableContainer td:nth-child(1) {
+        text-align: right;
+        width: 100px;
+      }
+
+      .scales {
+        width: 350px;
+        display: inline-block;
+        margin-bottom: 20px;
+      }
+
+      .scales th:nth-child(1),
+      .scales td:nth-child(2) {
+        border-right: 2px solid black;
+      }
+
+      [tooltip]:before {
+        /* needed - do not touch */
+        content: attr(tooltip);
+        position: absolute;
+        opacity: 0;
+
+        /* customizable */
+        transition: all 0.15s ease;
+        padding: 10px;
+        color: #333;
+        border-radius: 10px;
+        box-shadow: 2px 2px 1px silver;
+        max-width: 400px;
+      }
+
+      [tooltip]:hover:before {
+        /* needed - do not touch */
+        opacity: 1;
+
+        /* customizable */
+        background: yellow;
+        margin-top: -50px;
+        margin-left: 20px;
+        max-width: 400px;
+      }
+
+      [tooltip]:not([tooltip-persistent]):before {
+        pointer-events: none;
+      }
+
+      /* START ALTERNATE ALERT BOX CSS */
+
+      .hide {
+        display: none;
+      }
+
+      #warningBox {
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        border: solid 1px black;
+        width: 400px;
+        position: absolute;
+        left: 40%;
+        top: 300px;
+        padding: 10px;
+        padding-bottom: 50px;
+        text-align: left;
+      }
+
+      #warningBox:after {
+        margin: 5px;
+      }
+
+      #warningBoxOL {
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        border: solid 1px black;
+        width: 400px;
+        position: absolute;
+        left: 40%;
+        top: 300px;
+        padding: 10px;
+        padding-bottom: 50px;
+        text-align: left;
+      }
+
+      #warningBoxOL:after {
+        margin: 5px;
+      }
+
+      #warningClose {
+        position: absolute;
+        right: 20px;
+        padding: 5px 35px;
+      }
+
+      /* END ALTERNATE ALERT BOX CSS */
+    </style>
+
+    <script>
+      function hideAlert(msgText) {
+        warningBox.classList.add("hide");
+        warningBoxOL.classList.add("hide");
+      }
+
+      function updateBaseStats() {
+        //	var requestURL = './archtypes.json';
+        //	var request = new XMLHttpRequest();
+        //	request.open('GET', requestURL);
+        //	request.responseType = 'json';
+        //	request.send();
+
+        //	request.onload = function() {
+        //		var superHeroes = request.response;
+
+        var archId = document.getElementById("selectArchtype").selectedIndex;
+
+        switch (archId) {
+          case 1:
+            // safety: Center Fielder
+            document.getElementById("a0").value = 35;
+            document.getElementById("a1").value = 50;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 40;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 35;
+            document.getElementById("a6").value = 55;
+            document.getElementById("a7").value = 35;
+            document.getElementById("a8").value = 1;
+            document.getElementById("a9").value = 1;
+            document.getElementById("a10").value = 40;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 35;
+            document.getElementById("a0_max").innerHTML = 70;
+            document.getElementById("a1_max").innerHTML = 90;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 80;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 75;
+            document.getElementById("a6_max").innerHTML = 95;
+            document.getElementById("a7_max").innerHTML = 75;
+            document.getElementById("a8_max").innerHTML = 1;
+            document.getElementById("a9_max").innerHTML = 1;
+            document.getElementById("a10_max").innerHTML = 90;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 75;
+            document.getElementById("pointsBase").value = 336;
+            document.getElementById("t1_name").innerHTML = "Center Fielder";
+            document.getElementById("t1_cost").innerHTML = 50;
+            document.getElementById("t2_name").innerHTML = "Role Model";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Athlete";
+            document.getElementById("t3_cost").innerHTML = 100;
+            document.getElementById("t4_name").innerHTML = "Competitor";
+            document.getElementById("t4_cost").innerHTML = 50;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 2:
+            // safety: Ball Hawk
+            document.getElementById("a0").value = 40;
+            document.getElementById("a1").value = 55;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 40;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 35;
+            document.getElementById("a6").value = 55;
+            document.getElementById("a7").value = 40;
+            document.getElementById("a8").value = 1;
+            document.getElementById("a9").value = 1;
+            document.getElementById("a10").value = 40;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 40;
+            document.getElementById("a0_max").innerHTML = 75;
+            document.getElementById("a1_max").innerHTML = 90;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 80;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 80;
+            document.getElementById("a6_max").innerHTML = 90;
+            document.getElementById("a7_max").innerHTML = 80;
+            document.getElementById("a8_max").innerHTML = 1;
+            document.getElementById("a9_max").innerHTML = 1;
+            document.getElementById("a10_max").innerHTML = 90;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 80;
+            document.getElementById("pointsBase").value = 361;
+            document.getElementById("t1_name").innerHTML = "Perceptive";
+            document.getElementById("t1_cost").innerHTML = 50;
+            document.getElementById("t2_name").innerHTML = "Role Model";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Athlete";
+            document.getElementById("t3_cost").innerHTML = 100;
+            document.getElementById("t4_name").innerHTML = "Competitor";
+            document.getElementById("t4_cost").innerHTML = 50;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 3:
+            // safety: Enforcer
+            document.getElementById("a0").value = 40;
+            document.getElementById("a1").value = 50;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 50;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 40;
+            document.getElementById("a6").value = 55;
+            document.getElementById("a7").value = 30;
+            document.getElementById("a8").value = 1;
+            document.getElementById("a9").value = 1;
+            document.getElementById("a10").value = 40;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 45;
+            document.getElementById("a0_max").innerHTML = 75;
+            document.getElementById("a1_max").innerHTML = 85;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 85;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 80;
+            document.getElementById("a6_max").innerHTML = 90;
+            document.getElementById("a7_max").innerHTML = 70;
+            document.getElementById("a8_max").innerHTML = 1;
+            document.getElementById("a9_max").innerHTML = 1;
+            document.getElementById("a10_max").innerHTML = 90;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 85;
+            document.getElementById("pointsBase").value = 361;
+            document.getElementById("t1_name").innerHTML = "Box Safety";
+            document.getElementById("t1_cost").innerHTML = 50;
+            document.getElementById("t2_name").innerHTML = "Role Model";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Athlete";
+            document.getElementById("t3_cost").innerHTML = 100;
+            document.getElementById("t4_name").innerHTML = "Competitor";
+            document.getElementById("t4_cost").innerHTML = 50;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 4:
+            // Defensive Tackle: Nose Tackle
+            document.getElementById("a0").value = 55;
+            document.getElementById("a1").value = 40;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 40;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 55;
+            document.getElementById("a6").value = 35;
+            document.getElementById("a7").value = 20;
+            document.getElementById("a8").value = 1;
+            document.getElementById("a9").value = 1;
+            document.getElementById("a10").value = 45;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 35;
+            document.getElementById("a0_max").innerHTML = 95;
+            document.getElementById("a1_max").innerHTML = 70;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 80;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 95;
+            document.getElementById("a6_max").innerHTML = 65;
+            document.getElementById("a7_max").innerHTML = 50;
+            document.getElementById("a8_max").innerHTML = 1;
+            document.getElementById("a9_max").innerHTML = 1;
+            document.getElementById("a10_max").innerHTML = 80;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 80;
+            document.getElementById("pointsBase").value = 341;
+            document.getElementById("t1_name").innerHTML = "Bull Rusher";
+            document.getElementById("t1_cost").innerHTML = 75;
+            document.getElementById("t2_name").innerHTML = "Competitor";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Perceptive";
+            document.getElementById("t3_cost").innerHTML = 50;
+            document.getElementById("t4_name").innerHTML = "Role Model";
+            document.getElementById("t4_cost").innerHTML = 50;
+            document.getElementById("t5_name").innerHTML = "Speed Rusher";
+            document.getElementById("t5_cost").innerHTML = 75;
+            break;
+
+          case 5:
+            // Defensive Tackle: Interior Rusher
+            document.getElementById("a0").value = 55;
+            document.getElementById("a1").value = 60;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 40;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 60;
+            document.getElementById("a6").value = 50;
+            document.getElementById("a7").value = 20;
+            document.getElementById("a8").value = 1;
+            document.getElementById("a9").value = 1;
+            document.getElementById("a10").value = 55;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 45;
+            document.getElementById("a0_max").innerHTML = 90;
+            document.getElementById("a1_max").innerHTML = 90;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 80;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 95;
+            document.getElementById("a6_max").innerHTML = 75;
+            document.getElementById("a7_max").innerHTML = 50;
+            document.getElementById("a8_max").innerHTML = 1;
+            document.getElementById("a9_max").innerHTML = 1;
+            document.getElementById("a10_max").innerHTML = 80;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 80;
+            document.getElementById("pointsBase").value = 421;
+            document.getElementById("t1_name").innerHTML = "Bull Rusher";
+            document.getElementById("t1_cost").innerHTML = 75;
+            document.getElementById("t2_name").innerHTML = "Competitor";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Perceptive";
+            document.getElementById("t3_cost").innerHTML = 50;
+            document.getElementById("t4_name").innerHTML = "Role Model";
+            document.getElementById("t4_cost").innerHTML = 50;
+            document.getElementById("t5_name").innerHTML = "Speed Rusher";
+            document.getElementById("t5_cost").innerHTML = 75;
+            break;
+
+          case 6:
+            // defensive tackle: all purpose
+            document.getElementById("a0").value = 60;
+            document.getElementById("a1").value = 50;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 40;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 60;
+            document.getElementById("a6").value = 45;
+            document.getElementById("a7").value = 20;
+            document.getElementById("a8").value = 1;
+            document.getElementById("a9").value = 1;
+            document.getElementById("a10").value = 55;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 45;
+            document.getElementById("a0_max").innerHTML = 95;
+            document.getElementById("a1_max").innerHTML = 80;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 80;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 95;
+            document.getElementById("a6_max").innerHTML = 70;
+            document.getElementById("a7_max").innerHTML = 50;
+            document.getElementById("a8_max").innerHTML = 1;
+            document.getElementById("a9_max").innerHTML = 1;
+            document.getElementById("a10_max").innerHTML = 80;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 80;
+            document.getElementById("pointsBase").value = 406;
+            document.getElementById("t1_name").innerHTML = "Bull Rusher";
+            document.getElementById("t1_cost").innerHTML = 75;
+            document.getElementById("t2_name").innerHTML = "Competitor";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Perceptive";
+            document.getElementById("t3_cost").innerHTML = 50;
+            document.getElementById("t4_name").innerHTML = "Role Model";
+            document.getElementById("t4_cost").innerHTML = 50;
+            document.getElementById("t5_name").innerHTML = "Speed Rusher";
+            document.getElementById("t5_cost").innerHTML = 75;
+            break;
+
+          case 7:
+            // defensive end: Power Rusher
+            document.getElementById("a0").value = 60;
+            document.getElementById("a1").value = 50;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 40;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 55;
+            document.getElementById("a6").value = 45;
+            document.getElementById("a7").value = 20;
+            document.getElementById("a8").value = 1;
+            document.getElementById("a9").value = 1;
+            document.getElementById("a10").value = 40;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 50;
+            document.getElementById("a0_max").innerHTML = 90;
+            document.getElementById("a1_max").innerHTML = 85;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 75;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 90;
+            document.getElementById("a6_max").innerHTML = 75;
+            document.getElementById("a7_max").innerHTML = 60;
+            document.getElementById("a8_max").innerHTML = 1;
+            document.getElementById("a9_max").innerHTML = 1;
+            document.getElementById("a10_max").innerHTML = 80;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 90;
+            document.getElementById("pointsBase").value = 381;
+            document.getElementById("t1_name").innerHTML = "Bull Rusher";
+            document.getElementById("t1_cost").innerHTML = 100;
+            document.getElementById("t2_name").innerHTML = "Competitor";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Perceptive";
+            document.getElementById("t3_cost").innerHTML = 50;
+            document.getElementById("t4_name").innerHTML = "Role Model";
+            document.getElementById("t4_cost").innerHTML = 50;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 8:
+            // defensive end: speed rusher
+            document.getElementById("a0").value = 55;
+            document.getElementById("a1").value = 55;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 45;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 55;
+            document.getElementById("a6").value = 50;
+            document.getElementById("a7").value = 20;
+            document.getElementById("a8").value = 1;
+            document.getElementById("a9").value = 1;
+            document.getElementById("a10").value = 40;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 50;
+            document.getElementById("a0_max").innerHTML = 85;
+            document.getElementById("a1_max").innerHTML = 95;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 75;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 85;
+            document.getElementById("a6_max").innerHTML = 80;
+            document.getElementById("a7_max").innerHTML = 60;
+            document.getElementById("a8_max").innerHTML = 1;
+            document.getElementById("a9_max").innerHTML = 1;
+            document.getElementById("a10_max").innerHTML = 80;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 85;
+            document.getElementById("pointsBase").value = 391;
+            document.getElementById("t1_name").innerHTML = "Speed Rusher";
+            document.getElementById("t1_cost").innerHTML = 100;
+            document.getElementById("t2_name").innerHTML = "Competitor";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Perceptive";
+            document.getElementById("t3_cost").innerHTML = 50;
+            document.getElementById("t4_name").innerHTML = "Role Model";
+            document.getElementById("t4_cost").innerHTML = 50;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 9:
+            // defensive end: run stuffer
+            document.getElementById("a0").value = 60;
+            document.getElementById("a1").value = 45;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 40;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 55;
+            document.getElementById("a6").value = 35;
+            document.getElementById("a7").value = 20;
+            document.getElementById("a8").value = 1;
+            document.getElementById("a9").value = 1;
+            document.getElementById("a10").value = 40;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 50;
+            document.getElementById("a0_max").innerHTML = 95;
+            document.getElementById("a1_max").innerHTML = 75;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 75;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 95;
+            document.getElementById("a6_max").innerHTML = 70;
+            document.getElementById("a7_max").innerHTML = 60;
+            document.getElementById("a8_max").innerHTML = 1;
+            document.getElementById("a9_max").innerHTML = 1;
+            document.getElementById("a10_max").innerHTML = 80;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 85;
+            document.getElementById("pointsBase").value = 366;
+            document.getElementById("t1_name").innerHTML = "Bull Rusher";
+            document.getElementById("t1_cost").innerHTML = 100;
+            document.getElementById("t2_name").innerHTML = "Competitor";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Perceptive";
+            document.getElementById("t3_cost").innerHTML = 50;
+            document.getElementById("t4_name").innerHTML = "Role Model";
+            document.getElementById("t4_cost").innerHTML = 50;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 10:
+            // Linebacker: Pass Rusher
+            document.getElementById("a0").value = 50;
+            document.getElementById("a1").value = 55;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 40;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 45;
+            document.getElementById("a6").value = 55;
+            document.getElementById("a7").value = 20;
+            document.getElementById("a8").value = 1;
+            document.getElementById("a9").value = 1;
+            document.getElementById("a10").value = 40;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 50;
+            document.getElementById("a0_max").innerHTML = 85;
+            document.getElementById("a1_max").innerHTML = 90;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 75;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 85;
+            document.getElementById("a6_max").innerHTML = 90;
+            document.getElementById("a7_max").innerHTML = 50;
+            document.getElementById("a8_max").innerHTML = 1;
+            document.getElementById("a9_max").innerHTML = 1;
+            document.getElementById("a10_max").innerHTML = 80;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 90;
+            document.getElementById("pointsBase").value = 371;
+            document.getElementById("t1_name").innerHTML = "Speed Rusher";
+            document.getElementById("t1_cost").innerHTML = 50;
+            document.getElementById("t2_name").innerHTML = "Competitor";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Athlete";
+            document.getElementById("t3_cost").innerHTML = 100;
+            document.getElementById("t4_name").innerHTML = "Role Model";
+            document.getElementById("t4_cost").innerHTML = 50;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 11:
+            // Linebacker: Versatile LB
+            document.getElementById("a0").value = 55;
+            document.getElementById("a1").value = 50;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 45;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 55;
+            document.getElementById("a6").value = 45;
+            document.getElementById("a7").value = 20;
+            document.getElementById("a8").value = 1;
+            document.getElementById("a9").value = 1;
+            document.getElementById("a10").value = 40;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 45;
+            document.getElementById("a0_max").innerHTML = 90;
+            document.getElementById("a1_max").innerHTML = 85;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 85;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 90;
+            document.getElementById("a6_max").innerHTML = 80;
+            document.getElementById("a7_max").innerHTML = 65;
+            document.getElementById("a8_max").innerHTML = 1;
+            document.getElementById("a9_max").innerHTML = 1;
+            document.getElementById("a10_max").innerHTML = 80;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 85;
+            document.getElementById("pointsBase").value = 371;
+            document.getElementById("t1_name").innerHTML = "Athlete";
+            document.getElementById("t1_cost").innerHTML = 100;
+            document.getElementById("t2_name").innerHTML = "Competitor";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Perceptive";
+            document.getElementById("t3_cost").innerHTML = 50;
+            document.getElementById("t4_name").innerHTML = "Role Model";
+            document.getElementById("t4_cost").innerHTML = 50;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 12:
+            // Linebacker: Coverage LB
+            document.getElementById("a0").value = 45;
+            document.getElementById("a1").value = 55;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 50;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 40;
+            document.getElementById("a6").value = 50;
+            document.getElementById("a7").value = 20;
+            document.getElementById("a8").value = 1;
+            document.getElementById("a9").value = 1;
+            document.getElementById("a10").value = 40;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 40;
+            document.getElementById("a0_max").innerHTML = 80;
+            document.getElementById("a1_max").innerHTML = 90;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 90;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 85;
+            document.getElementById("a6_max").innerHTML = 85;
+            document.getElementById("a7_max").innerHTML = 75;
+            document.getElementById("a8_max").innerHTML = 1;
+            document.getElementById("a9_max").innerHTML = 1;
+            document.getElementById("a10_max").innerHTML = 80;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 80;
+            document.getElementById("pointsBase").value = 351;
+            document.getElementById("t1_name").innerHTML = "Athlete";
+            document.getElementById("t1_cost").innerHTML = 100;
+            document.getElementById("t2_name").innerHTML = "Competitor";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Perceptive";
+            document.getElementById("t3_cost").innerHTML = 50;
+            document.getElementById("t4_name").innerHTML = "Role Model";
+            document.getElementById("t4_cost").innerHTML = 50;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 13:
+            // Cornerback: Physical Corner
+            document.getElementById("a0").value = 50;
+            document.getElementById("a1").value = 55;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 50;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 35;
+            document.getElementById("a6").value = 55;
+            document.getElementById("a7").value = 40;
+            document.getElementById("a8").value = 1;
+            document.getElementById("a9").value = 1;
+            document.getElementById("a10").value = 40;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 35;
+            document.getElementById("a0_max").innerHTML = 80;
+            document.getElementById("a1_max").innerHTML = 85;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 85;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 75;
+            document.getElementById("a6_max").innerHTML = 95;
+            document.getElementById("a7_max").innerHTML = 80;
+            document.getElementById("a8_max").innerHTML = 1;
+            document.getElementById("a9_max").innerHTML = 1;
+            document.getElementById("a10_max").innerHTML = 80;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 80;
+            document.getElementById("pointsBase").value = 376;
+            document.getElementById("t1_name").innerHTML = "Press Corner";
+            document.getElementById("t1_cost").innerHTML = 50;
+            document.getElementById("t2_name").innerHTML = "Competitor";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Perceptive";
+            document.getElementById("t3_cost").innerHTML = 50;
+            document.getElementById("t4_name").innerHTML = "Athlete";
+            document.getElementById("t4_cost").innerHTML = 50;
+            document.getElementById("t5_name").innerHTML = "Role Model";
+            document.getElementById("t5_cost").innerHTML = 50;
+            break;
+
+          case 14:
+            // Cornerback: Cover Corner
+            document.getElementById("a0").value = 35;
+            document.getElementById("a1").value = 55;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 55;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 35;
+            document.getElementById("a6").value = 70;
+            document.getElementById("a7").value = 45;
+            document.getElementById("a8").value = 1;
+            document.getElementById("a9").value = 1;
+            document.getElementById("a10").value = 40;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 30;
+            document.getElementById("a0_max").innerHTML = 70;
+            document.getElementById("a1_max").innerHTML = 85;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 85;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 70;
+            document.getElementById("a6_max").innerHTML = 100;
+            document.getElementById("a7_max").innerHTML = 85;
+            document.getElementById("a8_max").innerHTML = 1;
+            document.getElementById("a9_max").innerHTML = 1;
+            document.getElementById("a10_max").innerHTML = 80;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 70;
+            document.getElementById("pointsBase").value = 401;
+            document.getElementById("t1_name").innerHTML = "Shut Down Corner";
+            document.getElementById("t1_cost").innerHTML = 50;
+            document.getElementById("t2_name").innerHTML = "Competitor";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Perceptive";
+            document.getElementById("t3_cost").innerHTML = 50;
+            document.getElementById("t4_name").innerHTML = "Athlete";
+            document.getElementById("t4_cost").innerHTML = 50;
+            document.getElementById("t5_name").innerHTML = "Role Model";
+            document.getElementById("t5_cost").innerHTML = 50;
+            break;
+
+          case 15:
+            // Cornerback: Slot Corner
+            document.getElementById("a0").value = 45;
+            document.getElementById("a1").value = 55;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 55;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 40;
+            document.getElementById("a6").value = 55;
+            document.getElementById("a7").value = 35;
+            document.getElementById("a8").value = 1;
+            document.getElementById("a9").value = 1;
+            document.getElementById("a10").value = 40;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 35;
+            document.getElementById("a0_max").innerHTML = 75;
+            document.getElementById("a1_max").innerHTML = 90;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 90;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 80;
+            document.getElementById("a6_max").innerHTML = 95;
+            document.getElementById("a7_max").innerHTML = 75;
+            document.getElementById("a8_max").innerHTML = 1;
+            document.getElementById("a9_max").innerHTML = 1;
+            document.getElementById("a10_max").innerHTML = 80;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 75;
+            document.getElementById("pointsBase").value = 381;
+            document.getElementById("t1_name").innerHTML = "Slot Corner";
+            document.getElementById("t1_cost").innerHTML = 50;
+            document.getElementById("t2_name").innerHTML = "Competitor";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Perceptive";
+            document.getElementById("t3_cost").innerHTML = 50;
+            document.getElementById("t4_name").innerHTML = "Athlete";
+            document.getElementById("t4_cost").innerHTML = 50;
+            document.getElementById("t5_name").innerHTML = "Role Model";
+            document.getElementById("t5_cost").innerHTML = 50;
+            break;
+
+          case 16:
+            // Kicker/Punter: Accurate
+            document.getElementById("a0").value = 1;
+            document.getElementById("a1").value = 1;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 60;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 1;
+            document.getElementById("a6").value = 1;
+            document.getElementById("a7").value = 1;
+            document.getElementById("a8").value = 1;
+            document.getElementById("a9").value = 1;
+            document.getElementById("a10").value = 1;
+            document.getElementById("a11").value = 60;
+            document.getElementById("a12").value = 70;
+            document.getElementById("a13").value = 1;
+            document.getElementById("a0_max").innerHTML = 1;
+            document.getElementById("a1_max").innerHTML = 1;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 90;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 1;
+            document.getElementById("a6_max").innerHTML = 1;
+            document.getElementById("a7_max").innerHTML = 1;
+            document.getElementById("a8_max").innerHTML = 1;
+            document.getElementById("a9_max").innerHTML = 1;
+            document.getElementById("a10_max").innerHTML = 1;
+            document.getElementById("a11_max").innerHTML = 90;
+            document.getElementById("a12_max").innerHTML = 100;
+            document.getElementById("a13_max").innerHTML = 1;
+            document.getElementById("pointsBase").value = 241;
+            document.getElementById("t1_name").innerHTML = "Steel Toe Boots";
+            document.getElementById("t1_cost").innerHTML = 150;
+            document.getElementById("t2_name").innerHTML = "Bionic Leg";
+            document.getElementById("t2_cost").innerHTML = 200;
+            document.getElementById("t3_name").innerHTML = "N/A";
+            document.getElementById("t3_cost").innerHTML = 0;
+            document.getElementById("t4_name").innerHTML = "N/A";
+            document.getElementById("t4_cost").innerHTML = 0;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 17:
+            // Kicker/Punter Power
+            document.getElementById("a0").value = 1;
+            document.getElementById("a1").value = 1;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 60;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 1;
+            document.getElementById("a6").value = 1;
+            document.getElementById("a7").value = 1;
+            document.getElementById("a8").value = 1;
+            document.getElementById("a9").value = 1;
+            document.getElementById("a10").value = 1;
+            document.getElementById("a11").value = 70;
+            document.getElementById("a12").value = 60;
+            document.getElementById("a13").value = 1;
+            document.getElementById("a0_max").innerHTML = 1;
+            document.getElementById("a1_max").innerHTML = 1;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 90;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 1;
+            document.getElementById("a6_max").innerHTML = 1;
+            document.getElementById("a7_max").innerHTML = 1;
+            document.getElementById("a8_max").innerHTML = 1;
+            document.getElementById("a9_max").innerHTML = 1;
+            document.getElementById("a10_max").innerHTML = 1;
+            document.getElementById("a11_max").innerHTML = 100;
+            document.getElementById("a12_max").innerHTML = 90;
+            document.getElementById("a13_max").innerHTML = 1;
+            document.getElementById("pointsBase").value = 241;
+            document.getElementById("t1_name").innerHTML = "Straight Shooter";
+            document.getElementById("t1_cost").innerHTML = 150;
+            document.getElementById("t2_name").innerHTML = "Laser Sights";
+            document.getElementById("t2_cost").innerHTML = 200;
+            document.getElementById("t3_name").innerHTML = "N/A";
+            document.getElementById("t3_cost").innerHTML = 0;
+            document.getElementById("t4_name").innerHTML = "N/A";
+            document.getElementById("t4_cost").innerHTML = 0;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 18:
+            // Quarterback: Gunslinger
+            document.getElementById("a0").value = 40;
+            document.getElementById("a1").value = 40;
+            document.getElementById("a2").value = 65;
+            document.getElementById("a3").value = 60;
+            document.getElementById("a4").value = 55;
+            document.getElementById("a5").value = 1;
+            document.getElementById("a6").value = 45;
+            document.getElementById("a7").value = 1;
+            document.getElementById("a8").value = 1;
+            document.getElementById("a9").value = 1;
+            document.getElementById("a10").value = 45;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 45;
+            document.getElementById("a0_max").innerHTML = 70;
+            document.getElementById("a1_max").innerHTML = 65;
+            document.getElementById("a2_max").innerHTML = 100;
+            document.getElementById("a3_max").innerHTML = 90;
+            document.getElementById("a4_max").innerHTML = 95;
+            document.getElementById("a5_max").innerHTML = 1;
+            document.getElementById("a6_max").innerHTML = 75;
+            document.getElementById("a7_max").innerHTML = 1;
+            document.getElementById("a8_max").innerHTML = 1;
+            document.getElementById("a9_max").innerHTML = 1;
+            document.getElementById("a10_max").innerHTML = 75;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 80;
+            document.getElementById("pointsBase").value = 431;
+            document.getElementById("t1_name").innerHTML = "Gunslinger";
+            document.getElementById("t1_cost").innerHTML = 50;
+            document.getElementById("t2_name").innerHTML = "Role Model";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Athlete";
+            document.getElementById("t3_cost").innerHTML = 50;
+            document.getElementById("t4_name").innerHTML = "N/A";
+            document.getElementById("t4_cost").innerHTML = 0;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 19:
+            // Quarterback: Pocket Passer
+            document.getElementById("a0").value = 40;
+            document.getElementById("a1").value = 40;
+            document.getElementById("a2").value = 55;
+            document.getElementById("a3").value = 65;
+            document.getElementById("a4").value = 60;
+            document.getElementById("a5").value = 1;
+            document.getElementById("a6").value = 45;
+            document.getElementById("a7").value = 1;
+            document.getElementById("a8").value = 1;
+            document.getElementById("a9").value = 1;
+            document.getElementById("a10").value = 45;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 45;
+            document.getElementById("a0_max").innerHTML = 65;
+            document.getElementById("a1_max").innerHTML = 65;
+            document.getElementById("a2_max").innerHTML = 90;
+            document.getElementById("a3_max").innerHTML = 95;
+            document.getElementById("a4_max").innerHTML = 100;
+            document.getElementById("a5_max").innerHTML = 1;
+            document.getElementById("a6_max").innerHTML = 75;
+            document.getElementById("a7_max").innerHTML = 1;
+            document.getElementById("a8_max").innerHTML = 1;
+            document.getElementById("a9_max").innerHTML = 1;
+            document.getElementById("a10_max").innerHTML = 75;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 80;
+            document.getElementById("pointsBase").value = 431;
+            document.getElementById("t1_name").innerHTML = "Game Manager";
+            document.getElementById("t1_cost").innerHTML = 100;
+            document.getElementById("t2_name").innerHTML = "Role Model";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Athlete";
+            document.getElementById("t3_cost").innerHTML = 50;
+            document.getElementById("t4_name").innerHTML = "N/A";
+            document.getElementById("t4_cost").innerHTML = 0;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 20:
+            // Quarterback: Field General
+            document.getElementById("a0").value = 40;
+            document.getElementById("a1").value = 35;
+            document.getElementById("a2").value = 60;
+            document.getElementById("a3").value = 65;
+            document.getElementById("a4").value = 55;
+            document.getElementById("a5").value = 1;
+            document.getElementById("a6").value = 45;
+            document.getElementById("a7").value = 1;
+            document.getElementById("a8").value = 1;
+            document.getElementById("a9").value = 1;
+            document.getElementById("a10").value = 45;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 45;
+            document.getElementById("a0_max").innerHTML = 65;
+            document.getElementById("a1_max").innerHTML = 60;
+            document.getElementById("a2_max").innerHTML = 95;
+            document.getElementById("a3_max").innerHTML = 100;
+            document.getElementById("a4_max").innerHTML = 90;
+            document.getElementById("a5_max").innerHTML = 1;
+            document.getElementById("a6_max").innerHTML = 75;
+            document.getElementById("a7_max").innerHTML = 1;
+            document.getElementById("a8_max").innerHTML = 1;
+            document.getElementById("a9_max").innerHTML = 1;
+            document.getElementById("a10_max").innerHTML = 75;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 80;
+            document.getElementById("pointsBase").value = 426;
+            document.getElementById("t1_name").innerHTML = "Game Manager";
+            document.getElementById("t1_cost").innerHTML = 100;
+            document.getElementById("t2_name").innerHTML = "Role Model";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Athlete";
+            document.getElementById("t3_cost").innerHTML = 50;
+            document.getElementById("t4_name").innerHTML = "N/A";
+            document.getElementById("t4_cost").innerHTML = 0;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 21:
+            // Quarterback: Scrambler
+            document.getElementById("a0").value = 45;
+            document.getElementById("a1").value = 50;
+            document.getElementById("a2").value = 50;
+            document.getElementById("a3").value = 50;
+            document.getElementById("a4").value = 60;
+            document.getElementById("a5").value = 1;
+            document.getElementById("a6").value = 70;
+            document.getElementById("a7").value = 35;
+            document.getElementById("a8").value = 1;
+            document.getElementById("a9").value = 1;
+            document.getElementById("a10").value = 50;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 50;
+            document.getElementById("a0_max").innerHTML = 65;
+            document.getElementById("a1_max").innerHTML = 75;
+            document.getElementById("a2_max").innerHTML = 85;
+            document.getElementById("a3_max").innerHTML = 90;
+            document.getElementById("a4_max").innerHTML = 90;
+            document.getElementById("a5_max").innerHTML = 1;
+            document.getElementById("a6_max").innerHTML = 100;
+            document.getElementById("a7_max").innerHTML = 60;
+            document.getElementById("a8_max").innerHTML = 1;
+            document.getElementById("a9_max").innerHTML = 1;
+            document.getElementById("a10_max").innerHTML = 80;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 80;
+            document.getElementById("pointsBase").value = 495;
+            document.getElementById("t1_name").innerHTML = "Dual Threat";
+            document.getElementById("t1_cost").innerHTML = 50;
+            document.getElementById("t2_name").innerHTML = "Role Model";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Athlete";
+            document.getElementById("t3_cost").innerHTML = 50;
+            document.getElementById("t4_name").innerHTML = "N/A";
+            document.getElementById("t4_cost").innerHTML = 0;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 22:
+            // quarterback: Mobile
+            document.getElementById("a0").value = 65;
+            document.getElementById("a1").value = 40;
+            document.getElementById("a2").value = 60;
+            document.getElementById("a3").value = 50;
+            document.getElementById("a4").value = 50;
+            document.getElementById("a5").value = 1;
+            document.getElementById("a6").value = 65;
+            document.getElementById("a7").value = 35;
+            document.getElementById("a8").value = 1;
+            document.getElementById("a9").value = 1;
+            document.getElementById("a10").value = 50;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 50;
+            document.getElementById("a0_max").innerHTML = 80;
+            document.getElementById("a1_max").innerHTML = 65;
+            document.getElementById("a2_max").innerHTML = 95;
+            document.getElementById("a3_max").innerHTML = 90;
+            document.getElementById("a4_max").innerHTML = 85;
+            document.getElementById("a5_max").innerHTML = 1;
+            document.getElementById("a6_max").innerHTML = 95;
+            document.getElementById("a7_max").innerHTML = 60;
+            document.getElementById("a8_max").innerHTML = 1;
+            document.getElementById("a9_max").innerHTML = 1;
+            document.getElementById("a10_max").innerHTML = 80;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 80;
+            document.getElementById("pointsBase").value = 510;
+            document.getElementById("t1_name").innerHTML = "Dual Threat";
+            document.getElementById("t1_cost").innerHTML = 50;
+            document.getElementById("t2_name").innerHTML = "Role Model";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Athlete";
+            document.getElementById("t3_cost").innerHTML = 50;
+            document.getElementById("t4_name").innerHTML = "N/A";
+            document.getElementById("t4_cost").innerHTML = 0;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 23:
+            // Running Back: Speed Back
+            document.getElementById("a0").value = 30;
+            document.getElementById("a1").value = 50;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 35;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 1;
+            document.getElementById("a6").value = 60;
+            document.getElementById("a7").value = 30;
+            document.getElementById("a8").value = 20;
+            document.getElementById("a9").value = 20;
+            document.getElementById("a10").value = 50;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 35;
+            document.getElementById("a0_max").innerHTML = 65;
+            document.getElementById("a1_max").innerHTML = 85;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 70;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 1;
+            document.getElementById("a6_max").innerHTML = 100;
+            document.getElementById("a7_max").innerHTML = 70;
+            document.getElementById("a8_max").innerHTML = 40;
+            document.getElementById("a9_max").innerHTML = 40;
+            document.getElementById("a10_max").innerHTML = 90;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 75;
+            document.getElementById("pointsBase").value = 345;
+            document.getElementById("t1_name").innerHTML = "Scat Back";
+            document.getElementById("t1_cost").innerHTML = 75;
+            document.getElementById("t2_name").innerHTML = "Raw Talent";
+            document.getElementById("t2_cost").innerHTML = 75;
+            document.getElementById("t3_name").innerHTML = "Athlete";
+            document.getElementById("t3_cost").innerHTML = 100;
+            document.getElementById("t4_name").innerHTML = "Role Model";
+            document.getElementById("t4_cost").innerHTML = 50;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 24:
+            // Running Back: Power Back
+            document.getElementById("a0").value = 60;
+            document.getElementById("a1").value = 50;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 35;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 1;
+            document.getElementById("a6").value = 55;
+            document.getElementById("a7").value = 35;
+            document.getElementById("a8").value = 20;
+            document.getElementById("a9").value = 20;
+            document.getElementById("a10").value = 50;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 40;
+            document.getElementById("a0_max").innerHTML = 90;
+            document.getElementById("a1_max").innerHTML = 85;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 80;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 1;
+            document.getElementById("a6_max").innerHTML = 95;
+            document.getElementById("a7_max").innerHTML = 70;
+            document.getElementById("a8_max").innerHTML = 50;
+            document.getElementById("a9_max").innerHTML = 50;
+            document.getElementById("a10_max").innerHTML = 90;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 80;
+            document.getElementById("pointsBase").value = 385;
+            document.getElementById("t1_name").innerHTML = "Raw Talent";
+            document.getElementById("t1_cost").innerHTML = 50;
+            document.getElementById("t2_name").innerHTML = "Athlete";
+            document.getElementById("t2_cost").innerHTML = 100;
+            document.getElementById("t3_name").innerHTML = "Role Model";
+            document.getElementById("t3_cost").innerHTML = 50;
+            document.getElementById("t4_name").innerHTML = "N/A";
+            document.getElementById("t4_cost").innerHTML = 0;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 25:
+            // Running Back: Receiving Back
+            document.getElementById("a0").value = 35;
+            document.getElementById("a1").value = 60;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 55;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 1;
+            document.getElementById("a6").value = 50;
+            document.getElementById("a7").value = 50;
+            document.getElementById("a8").value = 20;
+            document.getElementById("a9").value = 20;
+            document.getElementById("a10").value = 50;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 40;
+            document.getElementById("a0_max").innerHTML = 70;
+            document.getElementById("a1_max").innerHTML = 95;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 80;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 1;
+            document.getElementById("a6_max").innerHTML = 95;
+            document.getElementById("a7_max").innerHTML = 80;
+            document.getElementById("a8_max").innerHTML = 45;
+            document.getElementById("a9_max").innerHTML = 45;
+            document.getElementById("a10_max").innerHTML = 90;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 80;
+            document.getElementById("pointsBase").value = 400;
+            document.getElementById("t1_name").innerHTML = "Scat Back";
+            document.getElementById("t1_cost").innerHTML = 50;
+            document.getElementById("t2_name").innerHTML = "Role Model";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Athlete";
+            document.getElementById("t3_cost").innerHTML = 100;
+            document.getElementById("t4_name").innerHTML = "N/A";
+            document.getElementById("t4_cost").innerHTML = 0;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 26:
+            // Running Back: Fullback
+            document.getElementById("a0").value = 60;
+            document.getElementById("a1").value = 35;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 40;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 1;
+            document.getElementById("a6").value = 40;
+            document.getElementById("a7").value = 30;
+            document.getElementById("a8").value = 40;
+            document.getElementById("a9").value = 40;
+            document.getElementById("a10").value = 50;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 40;
+            document.getElementById("a0_max").innerHTML = 90;
+            document.getElementById("a1_max").innerHTML = 70;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 75;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 1;
+            document.getElementById("a6_max").innerHTML = 90;
+            document.getElementById("a7_max").innerHTML = 70;
+            document.getElementById("a8_max").innerHTML = 80;
+            document.getElementById("a9_max").innerHTML = 80;
+            document.getElementById("a10_max").innerHTML = 90;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 85;
+            document.getElementById("pointsBase").value = 390;
+            document.getElementById("t1_name").innerHTML = "Blocking FB";
+            document.getElementById("t1_cost").innerHTML = 50;
+            document.getElementById("t2_name").innerHTML = "Athlete";
+            document.getElementById("t2_cost").innerHTML = 100;
+            document.getElementById("t3_name").innerHTML = "Role Model";
+            document.getElementById("t3_cost").innerHTML = 50;
+            document.getElementById("t4_name").innerHTML = "N/A";
+            document.getElementById("t4_cost").innerHTML = 0;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 27:
+            // Wide Receiver: Speed Receiver
+            document.getElementById("a0").value = 30;
+            document.getElementById("a1").value = 55;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 40;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 1;
+            document.getElementById("a6").value = 60;
+            document.getElementById("a7").value = 55;
+            document.getElementById("a8").value = 20;
+            document.getElementById("a9").value = 20;
+            document.getElementById("a10").value = 50;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 35;
+            document.getElementById("a0_max").innerHTML = 65;
+            document.getElementById("a1_max").innerHTML = 85;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 80;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 1;
+            document.getElementById("a6_max").innerHTML = 100;
+            document.getElementById("a7_max").innerHTML = 85;
+            document.getElementById("a8_max").innerHTML = 35;
+            document.getElementById("a9_max").innerHTML = 35;
+            document.getElementById("a10_max").innerHTML = 90;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 80;
+            document.getElementById("pointsBase").value = 390;
+            document.getElementById("t1_name").innerHTML = "Deep Threat";
+            document.getElementById("t1_cost").innerHTML = 50;
+            document.getElementById("t2_name").innerHTML = "Athlete";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Role Model";
+            document.getElementById("t3_cost").innerHTML = 50;
+            document.getElementById("t4_name").innerHTML = "N/A";
+            document.getElementById("t4_cost").innerHTML = 0;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 28:
+            // Wide Receiver: Slot Receiver
+            document.getElementById("a0").value = 40;
+            document.getElementById("a1").value = 65;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 40;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 1;
+            document.getElementById("a6").value = 55;
+            document.getElementById("a7").value = 60;
+            document.getElementById("a8").value = 20;
+            document.getElementById("a9").value = 20;
+            document.getElementById("a10").value = 50;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 35;
+            document.getElementById("a0_max").innerHTML = 70;
+            document.getElementById("a1_max").innerHTML = 95;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 80;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 1;
+            document.getElementById("a6_max").innerHTML = 95;
+            document.getElementById("a7_max").innerHTML = 90;
+            document.getElementById("a8_max").innerHTML = 35;
+            document.getElementById("a9_max").innerHTML = 35;
+            document.getElementById("a10_max").innerHTML = 90;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 80;
+            document.getElementById("pointsBase").value = 420;
+            document.getElementById("t1_name").innerHTML = "Slot Receiver";
+            document.getElementById("t1_cost").innerHTML = 50;
+            document.getElementById("t2_name").innerHTML = "Athlete";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Role Model";
+            document.getElementById("t3_cost").innerHTML = 50;
+            document.getElementById("t4_name").innerHTML = "N/A";
+            document.getElementById("t4_cost").innerHTML = 0;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 29:
+            // Wide Receiver: Possession Receiver
+            document.getElementById("a0").value = 45;
+            document.getElementById("a1").value = 60;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 45;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 1;
+            document.getElementById("a6").value = 50;
+            document.getElementById("a7").value = 65;
+            document.getElementById("a8").value = 20;
+            document.getElementById("a9").value = 20;
+            document.getElementById("a10").value = 50;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 40;
+            document.getElementById("a0_max").innerHTML = 75;
+            document.getElementById("a1_max").innerHTML = 90;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 85;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 1;
+            document.getElementById("a6_max").innerHTML = 90;
+            document.getElementById("a7_max").innerHTML = 95;
+            document.getElementById("a8_max").innerHTML = 35;
+            document.getElementById("a9_max").innerHTML = 35;
+            document.getElementById("a10_max").innerHTML = 90;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 80;
+            document.getElementById("pointsBase").value = 425;
+            document.getElementById("t1_name").innerHTML = "Slot Receiver";
+            document.getElementById("t1_cost").innerHTML = 50;
+            document.getElementById("t2_name").innerHTML = "Athlete";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Role Model";
+            document.getElementById("t3_cost").innerHTML = 50;
+            document.getElementById("t4_name").innerHTML = "N/A";
+            document.getElementById("t4_cost").innerHTML = 0;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 30:
+            // tight end: vertical threat
+            document.getElementById("a0").value = 40;
+            document.getElementById("a1").value = 45;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 45;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 1;
+            document.getElementById("a6").value = 55;
+            document.getElementById("a7").value = 50;
+            document.getElementById("a8").value = 20;
+            document.getElementById("a9").value = 20;
+            document.getElementById("a10").value = 50;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 40;
+            document.getElementById("a0_max").innerHTML = 80;
+            document.getElementById("a1_max").innerHTML = 85;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 80;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 1;
+            document.getElementById("a6_max").innerHTML = 90;
+            document.getElementById("a7_max").innerHTML = 85;
+            document.getElementById("a8_max").innerHTML = 50;
+            document.getElementById("a9_max").innerHTML = 50;
+            document.getElementById("a10_max").innerHTML = 90;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 75;
+            document.getElementById("pointsBase").value = 375;
+            document.getElementById("t1_name").innerHTML = "Receiving TE";
+            document.getElementById("t1_cost").innerHTML = 150;
+            document.getElementById("t2_name").innerHTML = "Athlete";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Role Model";
+            document.getElementById("t3_cost").innerHTML = 50;
+            document.getElementById("t4_name").innerHTML = "N/A";
+            document.getElementById("t4_cost").innerHTML = 0;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 31:
+            // tight end: Possession TE
+            document.getElementById("a0").value = 50;
+            document.getElementById("a1").value = 45;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 45;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 1;
+            document.getElementById("a6").value = 50;
+            document.getElementById("a7").value = 55;
+            document.getElementById("a8").value = 35;
+            document.getElementById("a9").value = 35;
+            document.getElementById("a10").value = 50;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 40;
+            document.getElementById("a0_max").innerHTML = 85;
+            document.getElementById("a1_max").innerHTML = 80;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 80;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 1;
+            document.getElementById("a6_max").innerHTML = 85;
+            document.getElementById("a7_max").innerHTML = 90;
+            document.getElementById("a8_max").innerHTML = 60;
+            document.getElementById("a9_max").innerHTML = 60;
+            document.getElementById("a10_max").innerHTML = 90;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 75;
+            document.getElementById("pointsBase").value = 415;
+            document.getElementById("t1_name").innerHTML = "Receiving TE";
+            document.getElementById("t1_cost").innerHTML = 150;
+            document.getElementById("t2_name").innerHTML = "Athlete";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Role Model";
+            document.getElementById("t3_cost").innerHTML = 50;
+            document.getElementById("t4_name").innerHTML = "N/A";
+            document.getElementById("t4_cost").innerHTML = 0;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 32:
+            // Tight End: Blocking TE
+            document.getElementById("a0").value = 50;
+            document.getElementById("a1").value = 40;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 45;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 1;
+            document.getElementById("a6").value = 45;
+            document.getElementById("a7").value = 35;
+            document.getElementById("a8").value = 40;
+            document.getElementById("a9").value = 40;
+            document.getElementById("a10").value = 50;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 40;
+            document.getElementById("a0_max").innerHTML = 90;
+            document.getElementById("a1_max").innerHTML = 80;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 80;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 1;
+            document.getElementById("a6_max").innerHTML = 80;
+            document.getElementById("a7_max").innerHTML = 75;
+            document.getElementById("a8_max").innerHTML = 85;
+            document.getElementById("a9_max").innerHTML = 85;
+            document.getElementById("a10_max").innerHTML = 80;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 80;
+            document.getElementById("pointsBase").value = 390;
+            document.getElementById("t1_name").innerHTML = "Blocking TE";
+            document.getElementById("t1_cost").innerHTML = 100;
+            document.getElementById("t2_name").innerHTML = "Athlete";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "Role Model";
+            document.getElementById("t3_cost").innerHTML = 50;
+            document.getElementById("t4_name").innerHTML = "N/A";
+            document.getElementById("t4_cost").innerHTML = 0;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 33:
+            // Offensive Lineman: Athletic Lineman
+            document.getElementById("a0").value = 55;
+            document.getElementById("a1").value = 50;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 50;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 1;
+            document.getElementById("a6").value = 55;
+            document.getElementById("a7").value = 40;
+            document.getElementById("a8").value = 60;
+            document.getElementById("a9").value = 55;
+            document.getElementById("a10").value = 50;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 1;
+            document.getElementById("a0_max").innerHTML = 90;
+            document.getElementById("a1_max").innerHTML = 80;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 80;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 1;
+            document.getElementById("a6_max").innerHTML = 75;
+            document.getElementById("a7_max").innerHTML = 70;
+            document.getElementById("a8_max").innerHTML = 100;
+            document.getElementById("a9_max").innerHTML = 90;
+            document.getElementById("a10_max").innerHTML = 75;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 1;
+            document.getElementById("pointsBase").value = 446;
+            document.getElementById("t1_name").innerHTML = "Tenacious Blocker";
+            document.getElementById("t1_cost").innerHTML = 150;
+            document.getElementById("t2_name").innerHTML = "Role Model";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "N/A";
+            document.getElementById("t3_cost").innerHTML = 0;
+            document.getElementById("t4_name").innerHTML = "N/A";
+            document.getElementById("t4_cost").innerHTML = 0;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 34:
+            // Offensive Lineman: Balanced
+            document.getElementById("a0").value = 60;
+            document.getElementById("a1").value = 40;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 45;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 1;
+            document.getElementById("a6").value = 45;
+            document.getElementById("a7").value = 35;
+            document.getElementById("a8").value = 55;
+            document.getElementById("a9").value = 55;
+            document.getElementById("a10").value = 50;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 1;
+            document.getElementById("a0_max").innerHTML = 95;
+            document.getElementById("a1_max").innerHTML = 70;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 75;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 1;
+            document.getElementById("a6_max").innerHTML = 70;
+            document.getElementById("a7_max").innerHTML = 65;
+            document.getElementById("a8_max").innerHTML = 95;
+            document.getElementById("a9_max").innerHTML = 95;
+            document.getElementById("a10_max").innerHTML = 75;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 1;
+            document.getElementById("pointsBase").value = 411;
+            document.getElementById("t1_name").innerHTML = "Tenacious Blocker";
+            document.getElementById("t1_cost").innerHTML = 150;
+            document.getElementById("t2_name").innerHTML = "Role Model";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "N/A";
+            document.getElementById("t3_cost").innerHTML = 0;
+            document.getElementById("t4_name").innerHTML = "N/A";
+            document.getElementById("t4_cost").innerHTML = 0;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          case 35:
+            // Offensive Lineman: Mauler
+            document.getElementById("a0").value = 65;
+            document.getElementById("a1").value = 45;
+            document.getElementById("a2").value = 1;
+            document.getElementById("a3").value = 45;
+            document.getElementById("a4").value = 1;
+            document.getElementById("a5").value = 1;
+            document.getElementById("a6").value = 35;
+            document.getElementById("a7").value = 30;
+            document.getElementById("a8").value = 45;
+            document.getElementById("a9").value = 45;
+            document.getElementById("a10").value = 50;
+            document.getElementById("a11").value = 1;
+            document.getElementById("a12").value = 1;
+            document.getElementById("a13").value = 1;
+            document.getElementById("a0_max").innerHTML = 100;
+            document.getElementById("a1_max").innerHTML = 65;
+            document.getElementById("a2_max").innerHTML = 1;
+            document.getElementById("a3_max").innerHTML = 70;
+            document.getElementById("a4_max").innerHTML = 1;
+            document.getElementById("a5_max").innerHTML = 1;
+            document.getElementById("a6_max").innerHTML = 60;
+            document.getElementById("a7_max").innerHTML = 60;
+            document.getElementById("a8_max").innerHTML = 90;
+            document.getElementById("a9_max").innerHTML = 95;
+            document.getElementById("a10_max").innerHTML = 75;
+            document.getElementById("a11_max").innerHTML = 1;
+            document.getElementById("a12_max").innerHTML = 1;
+            document.getElementById("a13_max").innerHTML = 1;
+            document.getElementById("pointsBase").value = 381;
+            document.getElementById("t1_name").innerHTML = "Tenacious Blocker";
+            document.getElementById("t1_cost").innerHTML = 150;
+            document.getElementById("t2_name").innerHTML = "Role Model";
+            document.getElementById("t2_cost").innerHTML = 50;
+            document.getElementById("t3_name").innerHTML = "N/A";
+            document.getElementById("t3_cost").innerHTML = 0;
+            document.getElementById("t4_name").innerHTML = "N/A";
+            document.getElementById("t4_cost").innerHTML = 0;
+            document.getElementById("t5_name").innerHTML = "N/A";
+            document.getElementById("t5_cost").innerHTML = 0;
+            break;
+
+          default:
+            document.getElementById("pointsBase").value = 0;
+            document.getElementById("a0").value = 0;
+            document.getElementById("a1").value = 0;
+            document.getElementById("a2").value = 0;
+            document.getElementById("a3").value = 0;
+            document.getElementById("a4").value = 0;
+            document.getElementById("a5").value = 0;
+            document.getElementById("a6").value = 0;
+            document.getElementById("a7").value = 0;
+            document.getElementById("a8").value = 0;
+            document.getElementById("a9").value = 0;
+            document.getElementById("a10").value = 0;
+            document.getElementById("a11").value = 0;
+            document.getElementById("a12").value = 0;
+            document.getElementById("a13").value = 0;
+            document.getElementById("a0_max").innerHTML = 0;
+            document.getElementById("a1_max").innerHTML = 0;
+            document.getElementById("a2_max").innerHTML = 0;
+            document.getElementById("a3_max").innerHTML = 0;
+            document.getElementById("a4_max").innerHTML = 0;
+            document.getElementById("a5_max").innerHTML = 0;
+            document.getElementById("a6_max").innerHTML = 0;
+            document.getElementById("a7_max").innerHTML = 0;
+            document.getElementById("a8_max").innerHTML = 0;
+            document.getElementById("a9_max").innerHTML = 0;
+            document.getElementById("a10_max").innerHTML = 0;
+            document.getElementById("a11_max").innerHTML = 0;
+            document.getElementById("a12_max").innerHTML = 0;
+            document.getElementById("a13_max").innerHTML = 0;
+            break;
+        }
+
+        updateAllAttributes();
+
+        //}
+      }
+
+      function updateSum() {
+        var points = new Array(1);
+        var totalTPE = parseInt(document.getElementById("totalTPE").value);
+        var baseTPE = parseInt(document.getElementById("pointsBase").value);
+
+        var test = document.getElementById("a1_tpe").innerHTML;
+        points = new Array(13);
+        points[0] = parseInt(document.getElementById("a0_tpe").innerHTML);
+        points[1] = parseInt(document.getElementById("a1_tpe").innerHTML);
+        points[2] = parseInt(document.getElementById("a2_tpe").innerHTML);
+        points[3] = parseInt(document.getElementById("a3_tpe").innerHTML);
+        points[4] = parseInt(document.getElementById("a4_tpe").innerHTML);
+        points[5] = parseInt(document.getElementById("a5_tpe").innerHTML);
+        points[6] = parseInt(document.getElementById("a6_tpe").innerHTML);
+        points[7] = parseInt(document.getElementById("a7_tpe").innerHTML);
+        points[8] = parseInt(document.getElementById("a8_tpe").innerHTML);
+        points[9] = parseInt(document.getElementById("a9_tpe").innerHTML);
+        points[10] = parseInt(document.getElementById("a10_tpe").innerHTML);
+        points[11] = parseInt(document.getElementById("a11_tpe").innerHTML);
+        points[12] = parseInt(document.getElementById("a12_tpe").innerHTML);
+        points[13] = parseInt(document.getElementById("a13_tpe").innerHTML);
+
+        // Add the First Trait checkbox value to the total points
+        if (document.getElementById("t1_check").checked) {
+          points[points.length] = parseInt(
+            document.getElementById("t1_cost").innerHTML
+          );
+        }
+        // Add the second trait value to the total points
+        if (document.getElementById("t2_check").checked) {
+          points[points.length] = parseInt(
+            document.getElementById("t2_cost").innerHTML
+          );
+        }
+        // Add the third trait value to the total points
+        if (document.getElementById("t3_check").checked) {
+          points[points.length] = parseInt(
+            document.getElementById("t3_cost").innerHTML
+          );
+        }
+        // Add the fourth trait checkbox to total points
+        if (document.getElementById("t4_check").checked) {
+          points[points.length] = parseInt(
+            document.getElementById("t4_cost").innerHTML
+          );
+        }
+        // Add the fifth trait checkbox to total points
+        if (document.getElementById("t5_check").checked) {
+          points[points.length] = parseInt(
+            document.getElementById("t5_cost").innerHTML
+          );
+        }
+        var sum = 0;
+        var i = 0;
+        for (i = 0; i < points.length; i++) sum += points[i];
+
+        document.getElementById("pointsUsed").innerHTML = sum;
+        var banked = totalTPE + baseTPE - sum;
+        document.getElementById("pointsBanked").innerHTML = banked;
+      }
+      // This is where the Player Builder pulls the update scale
+      function updateAttribute(att) {
+        var tpeValue = 0;
+        var inputValue = document.getElementById(att).value.trim();
+        inputValue = inputValue.replace(" ", "");
+        var attMax = att.concat("_max");
+        var maxValue = document.getElementById(attMax).innerHTML.trim();
+        maxValue = maxValue.replace(" ", "");
+        maxValue = parseInt(maxValue);
+
+        if (isNaN(inputValue) || inputValue.length <= 0) inputValue = "0";
+
+        var intValue = parseInt(inputValue);
+        if (intValue > 100) intValue = 100;
+
+        if (intValue > maxValue) intValue = maxValue;
+
+        if (intValue <= 50) tpeValue = intValue;
+        else if (intValue <= 70) tpeValue = 50 + (intValue - 50) * 2;
+        else if (intValue <= 80) tpeValue = 90 + (intValue - 70) * 5;
+        else if (intValue <= 90) tpeValue = 140 + (intValue - 80) * 10;
+        else if (intValue <= 95) tpeValue = 240 + (intValue - 90) * 15;
+        else tpeValue = 315 + (intValue - 95) * 25;
+
+        var tpeField = att.concat("_tpe");
+        document.getElementById(att).value = intValue;
+        document.getElementById(tpeField).innerHTML = tpeValue;
+
+        updateSum();
+      }
+
+      var currentValuePlayer = "a0";
+
+      function updateAllAttributes() {
+        updateAttribute("a0");
+        updateAttribute("a1");
+        updateAttribute("a2");
+        updateAttribute("a3");
+        updateAttribute("a4");
+        updateAttribute("a5");
+        updateAttribute("a6");
+        updateAttribute("a7");
+        updateAttribute("a8");
+        updateAttribute("a9");
+        updateAttribute("a10");
+        updateAttribute("a11");
+        updateAttribute("a12");
+        updateAttribute("a13");
+      }
+
+      function resetAttributes() {
+        document.getElementById("a0").value = 0;
+        document.getElementById("a1").value = 0;
+        document.getElementById("a2").value = 0;
+        document.getElementById("a3").value = 0;
+        document.getElementById("a4").value = 0;
+        document.getElementById("a5").value = 0;
+        document.getElementById("a6").value = 0;
+        document.getElementById("a7").value = 0;
+        document.getElementById("a8").value = 0;
+        document.getElementById("a9").value = 0;
+        document.getElementById("a10").value = 0;
+        document.getElementById("a11").value = 0;
+        document.getElementById("a12").value = 0;
+        document.getElementById("a13").value = 0;
+
+        updateAllAttributes();
+      }
+
+      function updateTPE(tpe) {
+        if (isNaN(parseInt(tpe))) tpe = "50";
+
+        document.getElementById("totalTPE").value = tpe;
+        updateSum();
+      }
+    </script>
+  </head>
+  <body>
+    <h1>ISFL Player Builder</h1>
+    <div class="tableContainer">
+      <!-- START ALTERNATE ALERT BOXES -->
+      <div id="warningBox" class="hide">
+        <p id="msgText">
+          This archetype was removed prior to season six.<br />Please choose
+          another.
+        </p>
+        <p>
+          <input
+            id="warningClose"
+            type="button"
+            value="OK"
+            onclick="hideAlert();"
+          />
+        </p>
+      </div>
+
+      <div id="warningBoxOL" class="hide">
+        <p id="msgText">
+          It is not recommended that you create an offensive lineman.<br />We
+          use bots for most OL.
+        </p>
+        <p>
+          <input
+            id="warningClose"
+            type="button"
+            value="OK"
+            onclick="hideAlert();"
+          />
+        </p>
+      </div>
+
+      <!-- END ALTERNATE ALERT BOXES -->
+      <table>
+        <tr>
+          <th colspan="2">Points Information</th>
+        </tr>
+        <tr>
+          <td>Earned</td>
+          <td style="max-width: 20px">
+            <input
+              type="number"
+              min="50"
+              max="3000"
+              step="1"
+              onchange="updateTPE(value)"
+              id="totalTPE"
+              class="short"
+              value="50"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td tooltip="Base amount of TPE for this archetype">Base</td>
+          <th>
+            <input type="number" id="pointsBase" value="0" disabled />
+          </th>
+        </tr>
+        <tr>
+          <td tooltip="Amount of points spent on attributes">Used</td>
+          <th>
+            <span id="pointsUsed">0</span>
+          </th>
+        </tr>
+        <tr>
+          <td tooltip="Amount of points available to spend on attributes">
+            Available
+          </td>
+          <th>
+            <span id="pointsBanked">0</span>
+          </th>
+        </tr>
+        <tr>
+          <th colspan="2">
+            <select id="selectArchtype" onchange="updateBaseStats()">
+              <option>Select player archetype</option>
+              <option>Safety: Center Fielder</option>
+              <option>Safety: Ball Hawk</option>
+              <option>Safety: Enforcer</option>
+              <option>Defensive Tackle: Nose Tackle</option>
+              <option>Defensive Tackle: Interior Rusher</option>
+              <option>Defensive Tackle: All Purpose DT</option>
+              <option>Defensive End: Power Rusher</option>
+              <option>Defensive End: Speed Rusher</option>
+              <option>Defensive End: Run Stuffer</option>
+              <option>Linebacker: Pass Rusher</option>
+              <option>Linebacker: Versatile LB</option>
+              <option>Linebacker: Coverage LB</option>
+              <option>Cornerback: Physical Corner</option>
+              <option>Cornerback: Cover Corner</option>
+              <option>Cornerback: Slot Corner</option>
+              <option>Kicker/Punter: Accurate</option>
+              <option>Kicker/Punter: Power</option>
+              <option>Quarterback: Gunslinger QB</option>
+              <option>Quarterback: Pocket Passer</option>
+              <option>Quarterback: Field General</option>
+              <option>Quarterback: Scrambler</option>
+              <option>Quarterback: Mobile</option>
+              <option>Running Back: Speed Back</option>
+              <option>Running Back: Power Back</option>
+              <option>Running Back: Receiving Back</option>
+              <option>Running Back: Fullback</option>
+              <option>Wide Receiver: Speed Receiver</option>
+              <option>Wide Receiver: Slot Receiver</option>
+              <option>Wide Receiver: Possession Receiver</option>
+              <option>Tight End: Vertical Threat</option>
+              <option>Tight End: Possession TE</option>
+              <option>Tight End: Blocking TE</option>
+              <option>Offensive Lineman: Athletic Lineman</option>
+              <option>Offensive Lineman: Balanced Lineman</option>
+              <option>Offensive Lineman: Mauler</option>
+            </select>
+          </th>
+        </tr>
+      </table>
+    </div>
+
+    <div class="tableContainer">
+      <!-- TPE Calculator Table -->
+      <table id="tb_TPEplayer">
+        <th
+          colspan="4"
+          style="text-align: center; font-size: 16px; padding: 10px"
+        >
+          Player Builder
+        </th>
+        <tr>
+          <td><b>Attribute</b></td>
+          <td><b>Value</b></td>
+          <td><b>Points</b></td>
+          <td><b>Max</b></td>
+        </tr>
+        <tr>
+          <td
+            tooltip="Important for blocking, tackling, breaking through blocks and avoiding tackles. Also useful for forcing fumbles."
+          >
+            Strength
+          </td>
+          <td>
+            <input
+              type="number"
+              min="1"
+              max="100"
+              step="1"
+              id="a0"
+              onchange='updateAttribute("a0")'
+              onclick="this.select();"
+            />
+          </td>
+          <td><span id="a0_tpe">0</span></td>
+          <td><span id="a0_max">0</span></td>
+        </tr>
+        <tr>
+          <td
+            tooltip="Important for pass blocking, breaking through blocks, avoiding tackles and catching the ball. Also useful for tackling and defending and intercepting passes. For quarterbacks, provides a slight boost to pass completion chance and improves performance vs. blitzes."
+          >
+            Agility
+          </td>
+          <td>
+            <input
+              type="number"
+              min="1"
+              max="100"
+              step="1"
+              id="a1"
+              onchange='updateAttribute("a1")'
+              onclick="this.select();"
+            />
+          </td>
+          <td><span id="a1_tpe">0</span></td>
+          <td><span id="a1_max">0</span></td>
+        </tr>
+        <tr>
+          <td
+            tooltip="Makes it easier to complete downfield passes. Helps slightly in avoiding interceptions. High values make it more likely that the QB will throw deep."
+          >
+            Arm Strength
+          </td>
+          <td>
+            <input
+              type="number"
+              min="1"
+              max="100"
+              step="1"
+              id="a2"
+              onchange='updateAttribute("a2")'
+              onclick="this.select();"
+            />
+          </td>
+          <td><span id="a2_tpe">0</span></td>
+          <td><span id="a2_max">0</span></td>
+        </tr>
+        <tr>
+          <td
+            tooltip="Smart players are less likely to commit penalties. One of the most important QB stats for completing passes and avoiding interceptions. Also useful in many other situations, including run blocking, forcing fumbles, intercepting, tackling and avoiding tackles."
+          >
+            Intelligence
+          </td>
+          <td>
+            <input
+              type="number"
+              min="1"
+              max="100"
+              step="1"
+              id="a3"
+              onchange='updateAttribute("a3")'
+              onclick="this.select();"
+            />
+          </td>
+          <td><span id="a3_tpe">0</span></td>
+          <td><span id="a3_max">0</span></td>
+        </tr>
+        <tr>
+          <td
+            tooltip="Helps avoid throwing interceptions. Makes it easier to complete passes."
+          >
+            Accuracy
+          </td>
+          <td>
+            <input
+              type="number"
+              min="1"
+              max="100"
+              step="1"
+              id="a4"
+              onchange='updateAttribute("a4")'
+              onclick="this.select();"
+            />
+          </td>
+          <td><span id="a4_tpe">0</span></td>
+          <td><span id="a4_max">0</span></td>
+        </tr>
+        <tr>
+          <td
+            tooltip="Obviously the most important stat for bringing down the ballcarrier, but also helps with forcing fumbles and significantly contributes to breaking through blocks."
+          >
+            Tackling
+          </td>
+          <td>
+            <input
+              type="number"
+              min="1"
+              max="100"
+              step="1"
+              id="a5"
+              onchange='updateAttribute("a5")'
+              onclick="this.select();"
+            />
+          </td>
+          <td><span id="a5_tpe">0</span></td>
+          <td><span id="a5_max">0</span></td>
+        </tr>
+        <tr>
+          <td
+            tooltip="Makes you run faster, obviously. An extremely useful attribute for almost every position. While it doesn’t directly impact many things, getting open on offense or keeping up with your man in defense will make the rest of the play a lot easier."
+          >
+            Speed
+          </td>
+          <td>
+            <input
+              type="number"
+              min="1"
+              max="100"
+              step="1"
+              id="a6"
+              onchange='updateAttribute("a6")'
+              onclick="this.select();"
+            />
+          </td>
+          <td><span id="a6_tpe">0</span></td>
+          <td><span id="a6_max">0</span></td>
+        </tr>
+        <tr>
+          <td
+            tooltip="Higher Hands means you are less likely to fumble and more likely to be targeted with a pass by your QB. Important for catching the ball, and for pass blocking and getting pancakes. Useful for intercepting passes and slightly improves a quarterback’s chances of completing a pass."
+          >
+            Hands
+          </td>
+          <td>
+            <input
+              type="number"
+              min="1"
+              max="100"
+              step="1"
+              id="a7"
+              onchange='updateAttribute("a7")'
+              onclick="this.select();"
+            />
+          </td>
+          <td><span id="a7_tpe">0</span></td>
+          <td><span id="a7_max">0</span></td>
+        </tr>
+        <tr>
+          <td
+            tooltip="Important for blocking on passing plays, and helps pancake defenders on any type of block"
+          >
+            Pass Blocking
+          </td>
+          <td>
+            <input
+              type="number"
+              min="1"
+              max="100"
+              step="1"
+              id="a8"
+              onchange='updateAttribute("a8")'
+              onclick="this.select();"
+            />
+          </td>
+          <td><span id="a8_tpe">0</span></td>
+          <td><span id="a8_max">0</span></td>
+        </tr>
+        <tr>
+          <td
+            tooltip="Important for blocking on run plays, and helps pancake defenders on any type of block"
+          >
+            Run Blocking
+          </td>
+          <td>
+            <input
+              type="number"
+              min="1"
+              max="100"
+              step="1"
+              id="a9"
+              onchange='updateAttribute("a9")'
+              onclick="this.select();"
+            />
+          </td>
+          <td><span id="a9_tpe">0</span></td>
+          <td><span id="a9_max">0</span></td>
+        </tr>
+        <tr>
+          <td
+            tooltip="Higher Endurance helps with tackling, avoiding tackles and shutting down passes. For both rushing and receiving, higher endurance means you’re less likely to be easier to bring down. For rushing, higher endurance helps avoid running slower the more carries you’ve received in the game so far."
+          >
+            Endurance
+          </td>
+          <td>
+            <input
+              type="number"
+              min="1"
+              max="100"
+              step="1"
+              id="a10"
+              onchange='updateAttribute("a10")'
+              onclick="this.select();"
+            />
+          </td>
+          <td><span id="a10_tpe">0</span></td>
+          <td><span id="a10_max">0</span></td>
+        </tr>
+        <tr>
+          <td
+            tooltip="Helps make longer field goals, longer punts and longer kickoffs. Also makes it more likely the team opts to kick at long distances"
+          >
+            Kick Distance
+          </td>
+          <td>
+            <input
+              type="number"
+              min="1"
+              max="100"
+              step="1"
+              id="a11"
+              onchange='updateAttribute("a11")'
+              onclick="this.select();"
+            />
+          </td>
+          <td><span id="a11_tpe">0</span></td>
+          <td><span id="a11_max">0</span></td>
+        </tr>
+        <tr>
+          <td
+            tooltip="Helps make field goals. Less likely to shank punts and kickoffs."
+          >
+            Kick Accuracy
+          </td>
+          <td>
+            <input
+              type="number"
+              min="1"
+              max="100"
+              step="1"
+              id="a12"
+              onchange='updateAttribute("a12")'
+              onclick="this.select();"
+            />
+          </td>
+          <td><span id="a12_tpe">0</span></td>
+          <td><span id="a12_max">0</span></td>
+        </tr>
+        <tr>
+          <td
+            tooltip="If the defender has higher competitiveness than the ballcarrier, they are much more likely to force a fumble. Allows defenders to make more tackles without getting tired. Helps QBs complete passes. Makes receivers slightly more likely to catch the ball."
+          >
+            Competitiveness
+          </td>
+          <td>
+            <input
+              type="number"
+              min="1"
+              max="100"
+              step="1"
+              id="a13"
+              onchange='updateAttribute("a13")'
+              onclick="this.select();"
+            />
+          </td>
+          <td><span id="a13_tpe">0</span></td>
+          <td><span id="a13_max">0</span></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="tableContainer">
+      <span
+        ><b
+          tooltip="Make sure you meet the requirements to purchase your trait!"
+        >
+          Purchase Traits</b
+        ></span
+      >
+      <table>
+        <tr>
+          <th>Trait</th>
+          <th>Cost</th>
+          <th>Purchased</th>
+        </tr>
+        <tr></tr>
+        <tr>
+          <td><span id="t1_name">N/A</span></td>
+          <td><span id="t1_cost">0</span></td>
+          <td>
+            <input type="checkbox" id="t1_check" onchange="updateSum()" />
+          </td>
+        </tr>
+        <tr>
+          <td><span id="t2_name">N/A</span></td>
+          <td><span id="t2_cost">0</span></td>
+          <td>
+            <input type="checkbox" id="t2_check" onchange="updateSum()" />
+          </td>
+        </tr>
+        <tr>
+          <td><span id="t3_name">N/A</span></td>
+          <td><span id="t3_cost">0</span></td>
+          <td>
+            <input type="checkbox" id="t3_check" onchange="updateSum()" />
+          </td>
+        </tr>
+        <tr>
+          <td><span id="t4_name">N/A</span></td>
+          <td><span id="t4_cost">0</span></td>
+          <td>
+            <input type="checkbox" id="t4_check" onchange="updateSum()" />
+          </td>
+        </tr>
+        <tr>
+          <td><span id="t5_name">N/A</span></td>
+          <td><span id="t5_cost">0</span></td>
+          <td>
+            <input type="checkbox" id="t5_check" onchange="updateSum()" />
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="LinktoTraitRequirements">
+      <span
+        ><b
+          ><p style="color: blue">
+            <a
+              href="https://forums.sim-football.com/showthread.php?tid=28441"
+              target="_blank"
+              >Click Here For The Trait Prerequisites</a
+            >
+          </p></b
+        ></span
+      >
+      <br />
+    </div>
+
+    <div id="updateScaleNotes">
+      <span><b>Player Update Scale</b></span>
+      <table>
+        <tr>
+          <td>0-50</td>
+          <td>1pt</td>
+        </tr>
+        <tr>
+          <td>51-70</td>
+          <td>2pts</td>
+        </tr>
+        <tr>
+          <td>71-80</td>
+          <td>5pts</td>
+        </tr>
+        <tr>
+          <td>81-90</td>
+          <td>10pts</td>
+        </tr>
+        <tr>
+          <td>91-95</td>
+          <td>15pts</td>
+        </tr>
+        <tr>
+          <td>96-100</td>
+          <td>25pts</td>
+        </tr>
+      </table>
+      <br />
+    </div>
+
+    <hr />
+    <br />
+
+    <p><b>Last Updated:</b> December 25th, 2020</p>
+    <p>
+      <b>Enhanced By: </b>SquishyDough and JPach<br />
+      <b>Made by:</b> 37thchamber<br />Based on original code by Bojo (Ray)
+    </p>
+    <br />
+    <p>
+      This site uses HTML5<br />Some features may not work on older browsers
+    </p>
+    <br />
+  </body>
+</html>
