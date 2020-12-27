@@ -9,7 +9,4 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - uses: net-engine/github-repository-sync-action@v1
-      with:
-        target_repo_url: dokku@165.227.217.132:tracker
-        ssh_private_key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+    - run: echo "${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}" && git remote add deploy "${{ secrets.DEPLOY_SSH_TARGET }}" && git push deploy master
