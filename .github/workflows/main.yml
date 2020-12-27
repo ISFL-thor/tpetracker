@@ -9,4 +9,4 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - run: echo "${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}" && git remote add deploy "${{ secrets.DEPLOY_SSH_TARGET }}" && git push deploy master
+    - run: echo "${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa && git remote add deploy "${{ secrets.DEPLOY_SSH_TARGET }}" && git push deploy master
