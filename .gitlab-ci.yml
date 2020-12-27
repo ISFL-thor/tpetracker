@@ -9,6 +9,7 @@ deploy:
   script:
     - apt-get update
     - apt-get install git openssh-client -y
+    - ssh-agent -s
     - echo "$DEPLOY_SSH_KEY" | tr -d '\r' | ssh-add -
     - git remote add deploy "$DEPLOY_SSH_TARGET"
     - GIT_SSH_COMMAND="ssh -i ~/.ssh/id_ed25519" git push deploy HEAD:master
