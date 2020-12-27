@@ -4,7 +4,6 @@ on: [push, delete]
 
 jobs:
   deploy: 
-    runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v1
     - uses: net-engine/github-repository-sync-action@v1
