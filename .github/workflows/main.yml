@@ -4,11 +4,12 @@ on: [push, delete]
 
 jobs:
   deploy: 
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
+      with:
+        fetch_depth: 0
     - uses: net-engine/github-repository-sync-action@v1
       with:
-        target_repo_url:
-          ssh://dokku@165.227.217.132:tracker
-        ssh_private_key:
-          ${{ secrets.CODECOMMIT_SSH_PRIVATE_KEY }}
+        target_repo_url: dokku@165.227.217.132:tracker
+        ssh_private_key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
