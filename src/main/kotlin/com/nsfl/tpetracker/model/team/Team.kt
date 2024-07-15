@@ -8,9 +8,9 @@ enum class Team(
 ) {
     BALTIMORE_HAWKS("82", "/baltimore_hawks", "Baltimore Hawks", Type.NSFL),
     BERLIN_FIRE_SALAMANDERS("368","/berlin_fire_salamanders","Berlin Fire Salamanders", Type.NSFL),
-    CHICAGO_BUTCHERS("160", "/chicago_butchers", "Chicago Butchers", Type.NSFL),
+    OSAKA_KAIJU("160", "/osaka_kaiju", "Osaka Kaiju", Type.NSFL),
     COLORADO_YETI("66", "/colorado_yeti", "Colorado Yeti", Type.NSFL),
-    PHILADELPHIA_LIBERTY("144", "/philadelphia_liberty", "Philadelphia Liberty", Type.NSFL),
+    CAPE_TOWN_CRASH("144", "/cape_town_crash", "Cape Town Crash", Type.NSFL),
     SARASOTA_SAILFISH("306", "/sarasota_sailfish", "Sarasota Sailfish", Type.NSFL),
     YELLOWKNIFE_WRAITHS("68", "/yellowknife_wraiths", "Yellowknife Wraiths", Type.NSFL),
     ARIZONA_OUTLAWS("85", "/arizona_outlaws", "Arizona Outlaws", Type.NSFL),
@@ -51,6 +51,8 @@ enum class Team(
                 "PALM_BEACH_SOLAR_BEARS" -> BONDI_BEACH_BUCCANEERS
                 "MYRTLE_BEACH_BUCCANEERS" -> BONDI_BEACH_BUCCANEERS
                 "SAN_ANTONIO_MARSHALS" -> MINNESOTA_GREY_DUCKS
+                "CHICAGO_BUTCHERS" -> OSAKA_KAIJU
+                "PHILADELPHIA_LIBERTY" -> CAPE_TOWN_CRASH
                 else -> Team.valueOf(name)
             }
         }
