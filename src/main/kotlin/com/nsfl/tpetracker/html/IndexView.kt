@@ -43,20 +43,20 @@ fun HTML.indexView() {
         br {}
         container {
             row {
-                pageItem(url = "/baltimore_hawks", name = "Baltimore Hawks", imgSrc = "https://i.imgur.com/ZEuDUWh.png")
-                pageItem(url = "/berlin_fire_salamanders", name = "Berlin Fire Salamanders", imgSrc ="https://cdn.discordapp.com/attachments/747977609454944339/754901898594746429/BERbanner.png")
-                pageItem(url = "/chicago_butchers", name = "Chicago Butchers", imgSrc = "https://i.imgur.com/iVFr4uc.png")
-                pageItem(url = "/colorado_yeti", name = "Colorado Yeti", imgSrc = "https://i.imgur.com/fWU19kH.png")
-                pageItem(url = "/philadelphia_liberty", name = "Philadelphia Liberty", imgSrc = "https://i.imgur.com/aYEmbEm.png")
-                pageItem(url = "/sarasota_sailfish", name = "Sarasota Sailfish", imgSrc = "https://cdn.discordapp.com/attachments/691424486926319616/692181074876563556/SARbanner.png")
-                pageItem(url = "/yellowknife_wraiths", name = "Yellowknife Wraiths", imgSrc = "https://i.imgur.com/dJKYUhw.png")
-                pageItem(url = "/arizona_outlaws", name = "Arizona Outlaws", imgSrc = "https://i.imgur.com/hagb6L3.png")
-                pageItem(url = "/austin_copperheads", name = "Austin Copperheads", imgSrc = "https://i.imgur.com/mtaczoq.png")
-                pageItem(url = "/honolulu_hahalua", name = "Honolulu Hahalua", imgSrc = "https://cdn.discordapp.com/attachments/691424711925563500/692401088829063168/HONbanner.png")
-                pageItem(url = "/new_orleans_second_line", name = "New Orleans Second Line", imgSrc = "https://i.imgur.com/IY7NW3K.png")
-                pageItem(url = "/new_york_silverbacks", name = "New York Silverbacks", imgSrc = "https://cdn.discordapp.com/attachments/747977675355979857/754901932727861288/NYSbanner.png")
-                pageItem(url = "/orange_county_otters", name = "Orange County Otters", imgSrc = "https://i.imgur.com/8kqUlpH.png")
-                pageItem(url = "/san_jose_sabercats", name = "San Jose SaberCats", imgSrc = "https://i.imgur.com/YTe2q5A.png")
+                pageItem(url = "/baltimore_hawks", name = "Baltimore Hawks", imgSrc = "https://forums.sim-football.com/images/smilies/isfl/banners/ISFL/BALbanner.png")
+                pageItem(url = "/berlin_fire_salamanders", name = "Berlin Fire Salamanders", imgSrc ="https://forums.sim-football.com/images/smilies/isfl/banners/ISFL/BERbanner.png")
+                pageItem(url = "/osaka_kaiju", name = "Osaka Kaiju", imgSrc = "https://forums.sim-football.com/images/smilies/isfl/banners/ISFL/OSAbanner.png")
+                pageItem(url = "/colorado_yeti", name = "Colorado Yeti", imgSrc = "https://forums.sim-football.com/images/smilies/isfl/banners/ISFL/COLbanner.png")
+                pageItem(url = "/cape_town_crash", name = "Cape Town Crash", imgSrc = "https://forums.sim-football.com/images/smilies/isfl/banners/ISFL/CTCbanner.png")
+                pageItem(url = "/sarasota_sailfish", name = "Sarasota Sailfish", imgSrc = "https://forums.sim-football.com/images/smilies/isfl/banners/ISFL/SARbanner.png")
+                pageItem(url = "/yellowknife_wraiths", name = "Yellowknife Wraiths", imgSrc = "https://forums.sim-football.com/images/smilies/isfl/banners/ISFL/YKWbanner.png")
+                pageItem(url = "/arizona_outlaws", name = "Arizona Outlaws", imgSrc = "https://forums.sim-football.com/images/smilies/isfl/banners/ISFL/AZbanner.png")
+                pageItem(url = "/austin_copperheads", name = "Austin Copperheads", imgSrc = "https://forums.sim-football.com/images/smilies/isfl/banners/ISFL/AUSbanner.png")
+                pageItem(url = "/honolulu_hahalua", name = "Honolulu Hahalua", imgSrc = "https://forums.sim-football.com/images/smilies/isfl/banners/ISFL/HONbanner.png")
+                pageItem(url = "/new_orleans_second_line", name = "New Orleans Second Line", imgSrc = "https://forums.sim-football.com/images/smilies/isfl/banners/ISFL/NOLAbanner.png")
+                pageItem(url = "/new_york_silverbacks", name = "New York Silverbacks", imgSrc = "https://forums.sim-football.com/images/smilies/isfl/banners/ISFL/NYSbanner.png")
+                pageItem(url = "/orange_county_otters", name = "Orange County Otters", imgSrc = "https://forums.sim-football.com/images/smilies/isfl/banners/ISFL/OCObanner.png")
+                pageItem(url = "/san_jose_sabercats", name = "San Jose SaberCats", imgSrc = "https://forums.sim-football.com/images/smilies/isfl/banners/ISFL/SJSbanner.png")
             }
         }
 
@@ -64,14 +64,14 @@ fun HTML.indexView() {
         br {}
         container {
             row {
-                pageItem(url = "/bondi_beach_buccaneers", name = "Bondi Beach Buccaneers", imgSrc = "https://cdn.discordapp.com/attachments/760202062595489824/777673794264236042/BBbanner.png")
-                pageItem(url = "/london_royals", name = "London Royals", imgSrc = "https://i.imgur.com/oZSgFwV.png")
-                pageItem(url = "/dallas_birddogs", name = "Dallas Birddogs", imgSrc = "https://i.imgur.com/kHc4zgX.png")
-                pageItem(url = "/kansas_city_coyotes", name = "Kansas City Coyotes", imgSrc = "https://cdn.discordapp.com/attachments/712164068349444198/751206009422348348/KCCbanner.png")
-                pageItem(url = "/portland_pythons", name = "Portland Pythons", imgSrc = "https://i.imgur.com/rgXXbc8.png")
-                pageItem(url = "/norfolk_seawolves", name = "Norfolk SeaWolves", imgSrc = "https://i.imgur.com/4ZHdLpl.png")
-                pageItem(url = "/minnesota_grey_ducks", name = "Minnesota Grey Ducks", imgSrc = "https://i.imgur.com/ksywLuJ.png")
-                pageItem(url = "/tijuana_luchadores", name = "Tijuana Luchadores", imgSrc = "https://i.imgur.com/ZFILBNT.png")
+                pageItem(url = "/bondi_beach_buccaneers", name = "Bondi Beach Buccaneers", imgSrc = "https://forums.sim-football.com/images/smilies/isfl/banners/DSFL/BBbanner.png")
+                pageItem(url = "/london_royals", name = "London Royals", imgSrc = "https://forums.sim-football.com/images/smilies/isfl/banners/DSFL/LDNbanner.png")
+                pageItem(url = "/dallas_birddogs", name = "Dallas Birddogs", imgSrc = "https://forums.sim-football.com/images/smilies/isfl/banners/DSFL/DALbanner.png")
+                pageItem(url = "/kansas_city_coyotes", name = "Kansas City Coyotes", imgSrc = "https://i.postimg.cc/44v59VfV/KCCbanner.png")
+                pageItem(url = "/portland_pythons", name = "Portland Pythons", imgSrc = "https://forums.sim-football.com/images/smilies/isfl/banners/DSFL/PDXbanner.png")
+                pageItem(url = "/norfolk_seawolves", name = "Norfolk SeaWolves", imgSrc = "https://forums.sim-football.com/images/smilies/isfl/banners/DSFL/NORbanner.png")
+                pageItem(url = "/minnesota_grey_ducks", name = "Minnesota Grey Ducks", imgSrc = "https://forums.sim-football.com/images/smilies/isfl/banners/DSFL/MIN_banner.png")
+                pageItem(url = "/tijuana_luchadores", name = "Tijuana Luchadores", imgSrc = "https://forums.sim-football.com/images/smilies/isfl/banners/DSFL/TIJbanner.png")
             }
         }
 
