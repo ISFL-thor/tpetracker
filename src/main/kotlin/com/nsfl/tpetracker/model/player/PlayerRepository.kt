@@ -38,14 +38,14 @@ class PlayerRepository {
     fun getBerlinFireSalamandersPlayers() =
             activePlayerList.filter { it.team == Team.BERLIN_FIRE_SALAMANDERS }
 
-    fun getChicagoButchersPlayers() =
-            activePlayerList.filter { it.team == Team.CHICAGO_BUTCHERS }
+    fun getOsakaKaijuPlayers() =
+            activePlayerList.filter { it.team == Team.OSAKA_KAIJU }
 
     fun getColoradoYetiPlayers() =
             activePlayerList.filter { it.team == Team.COLORADO_YETI }
 
-    fun getPhiladelphiaLibertyPlayers() =
-            activePlayerList.filter { it.team == Team.PHILADELPHIA_LIBERTY }
+    fun getCapeTownCrashPlayers() =
+            activePlayerList.filter { it.team == Team.CAPE_TOWN_CRASH }
 
     fun getYellowknifeWraithsPlayers() =
             activePlayerList.filter { it.team == Team.YELLOWKNIFE_WRAITHS }
