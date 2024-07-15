@@ -102,9 +102,9 @@ class Application {
             listOf(
                     Pair(Team.BALTIMORE_HAWKS, playerRepository.getBaltimoreHawksPlayers()),
                     Pair(Team.BERLIN_FIRE_SALAMANDERS, playerRepository.getBerlinFireSalamandersPlayers()),
-                    Pair(Team.CHICAGO_BUTCHERS, playerRepository.getChicagoButchersPlayers()),
+                    Pair(Team.OSAKA_KAIJU, playerRepository.getOsakaKaijuPlayers()),
                     Pair(Team.COLORADO_YETI, playerRepository.getColoradoYetiPlayers()),
-                    Pair(Team.PHILADELPHIA_LIBERTY, playerRepository.getPhiladelphiaLibertyPlayers()),
+                    Pair(Team.CAPE_TOWN_CRASH, playerRepository.getCapeTownCrashPlayers()),
                     Pair(Team.SARASOTA_SAILFISH, playerRepository.getSarasotaSailfishPlayers()),
                     Pair(Team.YELLOWKNIFE_WRAITHS, playerRepository.getYellowknifeWraithsPlayers()),
                     Pair(Team.ARIZONA_OUTLAWS, playerRepository.getArizonaOutlawsPlayers()),
@@ -163,10 +163,10 @@ class Application {
             playerRepository.getBerlinFireSalamandersPlayers()
     )
 
-    @RequestMapping("/chicago_butchers")
-    fun getChicagoButchersPlayers() = htmlGenerator.createTeamPage(
-            Team.CHICAGO_BUTCHERS,
-            playerRepository.getChicagoButchersPlayers()
+    @RequestMapping("/osaka_kaiju")
+    fun getOsakaKaijuPlayers() = htmlGenerator.createTeamPage(
+            Team.OSAKA_KAIJU,
+            playerRepository.getOsakaKaijuPlayers()
     )
 
     @RequestMapping("/colorado_yeti")
@@ -175,10 +175,10 @@ class Application {
             playerRepository.getColoradoYetiPlayers()
     )
 
-    @RequestMapping("/philadelphia_liberty")
-    fun getPhiladelphiaLibertyPlayers() = htmlGenerator.createTeamPage(
-            Team.PHILADELPHIA_LIBERTY,
-            playerRepository.getPhiladelphiaLibertyPlayers()
+    @RequestMapping("/cape_town_crash")
+    fun getCapeTownCrashPlayers() = htmlGenerator.createTeamPage(
+            Team.CAPE_TOWN_CRASH,
+            playerRepository.getCapeTownCrashPlayers()
     )
 
     @RequestMapping("/yellowknife_wraiths")
